@@ -3,26 +3,44 @@
     <div id="nav-bar"> 
         <h3>DDelp</h3>
         <input id="search-bar">
-        <div id="log-in">Log in</div>
-        <div id="sign-up">Sign up</div>
     </div>
       <v-app>
             <v-content>
                 <v-container>Hello world</v-container>
                 <v-btn>hello</v-btn>
+                <authentication class="nav navbar-nav navbar-right"
+                    :getUser="getUser"
+                    :setUser="setUser">
+                </authentication>
             </v-content>
+          
         </v-app>
   </div>
 </template>
 
 <script>
+import { db } from './database'
+import Authentication from './components/Authentication'
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+        // useful data about the current user
+        user: null
     }
-  }
+  },
+    components: {
+        Authentication
+    },
+    methods: {
+        // allow child component to change user value
+        getUser () {
+            return this.user
+        },
+        setUser (user) {
+            this.user = user
+        }
+    }
 }
 </script>
 
