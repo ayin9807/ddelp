@@ -6,6 +6,12 @@
         <div id="log-in">Log in</div>
         <div id="sign-up">Sign up</div>
     </div>
+      <v-app>
+            <v-content>
+                <v-container>Hello world</v-container>
+                <v-btn>hello</v-btn>
+            </v-content>
+        </v-app>
   </div>
 </template>
 
