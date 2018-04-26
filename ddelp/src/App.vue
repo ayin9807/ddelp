@@ -1,19 +1,14 @@
 <template>
   <div id="app">
-    <div id="nav-bar"> 
-        <h2>DDelp</h2>
-        <input id="search-bar" style="width: 200px; height: 30px;">
-        <div id="authentication">
-            <div id="log-in">Log in</div>
-            <div id="sign-up">Sign up</div>
-        </div>
-    </div>
-      <v-app>
-            <v-content>
-                <v-container>Hello world</v-container>
-                <v-btn>hello</v-btn>
-            </v-content>
-        </v-app>
+    <v-app>
+        <v-content>
+            <v-toolbar>
+                <h2>DDelp</h2>
+                <v-text-field></v-text-field>
+                <v-btn>Sign in</v-btn>
+            </v-toolbar>
+        </v-content>
+    </v-app>
   </div>
 </template>
 
