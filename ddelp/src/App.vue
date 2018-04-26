@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <div id="nav-bar"> 
-        <h3>DDelp</h3>
-        <input id="search-bar">
-        <div id="log-in">Log in</div>
-        <div id="sign-up">Sign up</div>
+        <h2>DDelp</h2>
+        <input id="search-bar" style="width: 200px; height: 30px;">
+        <div id="authentication">
+            <div id="log-in">Log in</div>
+            <div id="sign-up">Sign up</div>
+        </div>
     </div>
   </div>
 </template>
@@ -21,22 +23,29 @@ export default {
 </script>
 
 <style>
+body {
+    margin: 0 0;
+}    
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
     
 #nav-bar {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: lightblue;
+    color: white;
 }
 
-h1, h2 {
-  font-weight: normal;
+h2 {
+    font-weight: bold;
 }
 
 ul {
