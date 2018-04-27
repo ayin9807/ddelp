@@ -9,9 +9,9 @@
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <v-icon>keyboard_arrow_up</v-icon>
+                    <v-icon @click="vote(key, 1)">keyboard_arrow_up</v-icon>
                     <v-list-tile-action-text>{{ key.numVotes }}</v-list-tile-action-text>
-                    <v-icon>keyboard_arrow_down</v-icon>
+                    <v-icon @click="vote(key, -1)">keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
             </v-list-tile>
 <!--            <v-divider v-if="index+1 < Object.keys(dishName).length"></v-divider>-->
@@ -23,14 +23,22 @@
 <script>
 import Firebase from 'firebase'
 import { dishesRef } from '../database'
-//var content = require('../assets/dishes.json')
 
 export default {
     data () {
         return {
         }
     }, methods:{
-      printkey(key){
+        vote(dish, amount){
+            dishesRef.child(dish['.key']).once('value', function(snapshot) {
+                var newNumVotes = snapshot.val().numVotes;
+                newNumVotes += amount;
+                dishesRef.child(dish['.key']).update({
+                    numVotes : newNumVotes
+                });
+            });
+     }
+      ,printkey(key){
           
           console.log(key['.key']);
       }  
@@ -48,7 +56,9 @@ export default {
 </script>
 
 <style>
-
+    v-list-tile{
+        margin-bottom: 10px
+    }
 #list-title {
     color: darkgray;
 }

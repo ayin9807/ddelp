@@ -5,12 +5,12 @@
          <form v-if="isAddingDish" @submit.prevent="addDish()">
             <v-layout row>
                <label for="cardTitle">Dish Name: </label>
-                <input class="input-margin" type="text" id="cardTitle" v-model="newDishName" /> </v-layout>
+                <input class="input-margin" type="text" v-model="newDishName" /> </v-layout>
              <v-layout row>
                <label for="cardTitle">Dish Location: </label>
-                <input class="input-margin" type="text" id="cardTitle" v-model="newDishLocation" /> </v-layout>
+                <input class="input-margin" type="text" v-model="newDishLocation" /> </v-layout>
                 <v-layout row>
-                   <v-btn type="submit" value="Add Card">Add Dish</v-btn>
+                   <v-btn type="submit" value="Add Dish">Add Dish</v-btn>
                    <v-btn type="reset" value="Cancel" @click="resetAddDish()">Cancel</v-btn>
                 </v-layout>
          </form>
@@ -29,7 +29,8 @@ export default {
             isAddingDish: false,
             newDishName: '',
             newDishLocation:'',
-            newDishVotes:[],
+            newDishUpVotes:[],
+            newDishDownVotes:[],
             newDishComments:[]
             
             
@@ -40,7 +41,8 @@ export default {
             dishesRef.push({
                 dishName: this.newDishName,
                 location: this.newDishLocation,
-                votes: this.newDishVotes,
+                upVotes: this.newDishUpVotes,
+                downVotes: this.newDishDownVotes,
                 numVotes: 0,
                 comments: this.newDishComments
             
