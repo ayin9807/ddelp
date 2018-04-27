@@ -33,9 +33,31 @@ export default {
             dishesRef.child(dish['.key']).once('value', function(snapshot) {
                 var newNumVotes = snapshot.val().numVotes;
                 newNumVotes += amount;
-                dishesRef.child(dish['.key']).update({
-                    numVotes : newNumVotes
+                var d = new Date();
+                if(amount >0){ //upvoting
+                    var newUpVotes = snapshot.val().upVotes;
+                    if(newUpVotes == null){
+                        newUpVotes = [];
+                    }
+                    newUpVotes.push(d);
+                    dishesRef.child(dish['.key']).update({
+                    numVotes : newNumVotes,
+                    upVotes: newUpVotes
+                    
                 });
+                }
+                if(amount <0){ //downvoting
+                    var newDownVotes = snapshot.val().downVotes;
+                    if(newDownVotes == null){
+                        newDownVotes = [];
+                    }
+                    newDownVotes.push(d);
+                    dishesRef.child(dish['.key']).update({
+                    numVotes : newNumVotes,
+                    downVotes: newDownVotes
+                });
+                }
+                
             });
      }
       ,printkey(key){
