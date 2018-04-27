@@ -17,6 +17,8 @@
 <!--            <v-divider v-if="index+1 < Object.keys(dishName).length"></v-divider>-->
         </template>
     </v-list>
+    </v-card>
+    </v-layout>
 </div>
 </template>
 
@@ -27,6 +29,7 @@ import { dishesRef } from '../database'
 export default {
     data () {
         return {
+            
         }
     }, methods:{
         vote(dish, amount){
@@ -72,8 +75,27 @@ export default {
     },
     
     props: [
-        'title'
-    ]
+        'title',
+        'setDish'
+    ], 
+    
+    methods: {
+        updateDish: function(value) {
+            this.setDish(value)
+        },
+        
+        printkey(key){
+            console.log(key['.key']);
+        },
+        
+        upvote () {
+            
+        },
+        
+        downvote () {
+            
+        }
+    }
 }
 </script>
 

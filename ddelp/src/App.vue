@@ -15,7 +15,7 @@
                 </authentication>
             </v-toolbar>
             <div id="top-fives">
-                <top-restaurants :title="title"></top-restaurants>
+                <top-restaurants :title="day" :setDish="viewDish"></top-restaurants>
                 <top-restaurants></top-restaurants>
             </div>
         </v-content>
@@ -29,6 +29,7 @@ import Authentication from './components/Authentication'
 import Search from './components/Search'
 import TopRestaurants from './components/TopRestaurants'
 import AddDish from './components/AddDish'
+import DishInfo from './components/DishInfo'
     
 export default {
   name: 'app',
@@ -36,14 +37,16 @@ export default {
     return {
         // useful data about the current user
         user: null,
-        title: 'Today'
+        day: 'Monday',
+        dishName: null
     }
   },
     components: {
         Authentication,
         Search,
+        AddDish,
+        DishInfo,
         TopRestaurants,
-        AddDish
     },
     methods: {
         // allow child component to change user value
@@ -52,6 +55,10 @@ export default {
         },
         setUser (user) {
             this.user = user
+        },
+        viewDish (value) {
+            this.dishName = value
+            console.log(this.dishName)
         }
     }
 }
