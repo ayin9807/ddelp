@@ -31,7 +31,22 @@ export default {
         return {
             
         }
-    }, methods:{
+    }, 
+    
+    firebase: {
+        dishes: dishesRef
+        
+    },
+    
+    props: [
+        'title',
+        'setDish'
+    ], 
+    
+    methods: {
+        updateDish: function(value) {
+            this.setDish(value)
+        },
         vote(dish, amount){
             dishesRef.child(dish['.key']).once('value', function(snapshot) {
                 var newNumVotes = snapshot.val().numVotes;
@@ -62,38 +77,10 @@ export default {
                 }
                 
             });
-     }
-      ,printkey(key){
-          
-          console.log(key['.key']);
-      }  
-    },
-    
-    firebase: {
-        dishes: dishesRef
-        
-    },
-    
-    props: [
-        'title',
-        'setDish'
-    ], 
-    
-    methods: {
-        updateDish: function(value) {
-            this.setDish(value)
-        },
+     },
         
         printkey(key){
             console.log(key['.key']);
-        },
-        
-        upvote () {
-            
-        },
-        
-        downvote () {
-            
         }
     }
 }
