@@ -1,11 +1,12 @@
 <template>
-<ul>
-    <li v-if="user"><a>hi{{user.name}}</a></li>
-    <li v-if="user" @click="signOut"><a><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-    <li v-else @click="signInPopup"><a><span class="glyphicon glyphicon-user"></span>Sign In</a></li>
-    <!-- sign in "popup" container does not popup for email authentication, so provide so styling help -->
-    <div id="firebaseui-auth-container" :class="{ popup: isShown }"></div>
-</ul>
+    <ul>
+        <li v-if="user" style="color: white; font-size: 18px; font-weight: bold;">Hi, {{user.name}}!</li>
+        <v-btn v-if="user"><a><span class="glyphicon glyphicon-log-out"></span>Profile</a></v-btn>
+        <v-btn v-if="user" @click="signOut"><a><span class="glyphicon glyphicon-log-out"></span>Logout</a></v-btn>
+        <v-btn v-else @click="signInPopup"><a><span class="glyphicon glyphicon-user"></span>Sign In</a></v-btn>
+        <!-- sign in "popup" container does not popup for email authentication, so provide so styling help -->
+        <div id="firebaseui-auth-container" :class="{ popup: isShown }"></div>
+    </ul>
 </template>
 
 <script>
@@ -24,7 +25,7 @@ export default {
     // methods provided to change value of user in parent component
     props: [
         'getUser',
-        'setUser'
+        'setUser',
     ],
     // let HTML template access user as if it were a variable in this component
     computed: {

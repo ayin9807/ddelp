@@ -1,36 +1,45 @@
 <template>
   <div id="app">
-    <div id="nav-bar"> 
-        <h3>DDelp</h3>
-        <input id="search-bar">
-    </div>
-      <v-app>
-            <v-content>
-                <v-container>Hello world</v-container>
-                <v-btn>hello</v-btn>
+    <v-app>
+        <v-content>
+            <v-toolbar color="teal lighten-3">
+                <h1>DDelp</h1>
+                <v-spacer></v-spacer>
+                <search></search>
+                <v-spacer></v-spacer>
                 <authentication class="nav navbar-nav navbar-right"
                     :getUser="getUser"
                     :setUser="setUser">
                 </authentication>
-            </v-content>
-          
-        </v-app>
+            </v-toolbar>
+            <div id="top-fives">
+                <top-restaurants :title="title"></top-restaurants>
+                <top-restaurants></top-restaurants>
+            </div>
+        </v-content>
+    </v-app>
   </div>
 </template>
 
 <script>
 import { db } from './database'
 import Authentication from './components/Authentication'
+import Search from './components/Search'
+import TopRestaurants from './components/TopRestaurants'
+    
 export default {
   name: 'app',
   data () {
     return {
         // useful data about the current user
-        user: null
+        user: null,
+        title: 'Today'
     }
   },
     components: {
-        Authentication
+        Authentication,
+        Search,
+        TopRestaurants
     },
     methods: {
         // allow child component to change user value
@@ -56,18 +65,21 @@ body {
   text-align: center;
   color: #2c3e50;
 }
-    
-#nav-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: lightblue;
+
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Futura';
     color: white;
 }
-
-h2 {
-    font-weight: bold;
+    
+#top-fives {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 ul {

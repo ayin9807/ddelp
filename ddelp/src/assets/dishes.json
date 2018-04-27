@@ -1,0 +1,31 @@
+{
+	"Grilled Cheese and Tomato Soup": {
+		"location": "Divinity Cafe",
+		"votes": 119,
+		"available": ["Mon", "Tue", "Wed", "Thur", "Fri", "Sun"]
+	},
+
+	"Bibimbob": {
+		"location": "Ginger & Soy",
+		"votes": 45,
+		"available": ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+	},
+
+	"Gyro": {
+		"location": "Gussys",
+		"votes": 240,
+		"available": ["Tue", "Thur"]
+	},
+
+	"Bacon and Cheddar Burger": {
+		"location": "Loop",
+		"votes": 134,
+		"available": ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+	},
+
+	"Vegan Nuggets": {
+		"location": "Sprout",
+		"votes": 70,
+		"available": ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+	}
+}
