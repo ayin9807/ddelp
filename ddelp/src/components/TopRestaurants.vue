@@ -9,9 +9,9 @@
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <v-icon>keyboard_arrow_up</v-icon>
+                    <v-icon @click="upvote">keyboard_arrow_up</v-icon>
                     <v-list-tile-action-text>{{ key.numVotes }}</v-list-tile-action-text>
-                    <v-icon>keyboard_arrow_down</v-icon>
+                    <v-icon @click="downvote">keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
             </v-list-tile>
 <!--            <v-divider v-if="index+1 < Object.keys(dishName).length"></v-divider>-->
@@ -30,13 +30,9 @@ import { dishesRef } from '../database'
 export default {
     data () {
         return {
+            
         }
-    }, methods:{
-      printkey(key){
-          
-          console.log(key['.key']);
-      }  
-    },
+    }, 
     
     firebase: {
         dishes: dishesRef
@@ -51,6 +47,10 @@ export default {
     methods: {
         updateDish: function(value) {
             this.setDish(value)
+        },
+        
+        printkey(key){
+            console.log(key['.key']);
         },
         
         upvote () {

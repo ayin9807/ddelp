@@ -44,8 +44,8 @@ export default {
     components: {
         Authentication,
         Search,
-        AddDish
-        DishInfo
+        AddDish,
+        DishInfo,
         TopRestaurants,
     },
     methods: {
