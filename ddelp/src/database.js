@@ -13,3 +13,5 @@ var config = {
 var fbApp = Firebase.initializeApp(config)
     // global reference to remote database app
 export const db = fbApp.database()
+    // create useful endpoints within the database
+export const dishesRef = db.ref('dishes')
