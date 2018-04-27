@@ -7,6 +7,8 @@
                 <v-spacer></v-spacer>
                 <search></search>
                 <v-spacer></v-spacer>
+                <addDish></addDish>
+                <v-spacer></v-spacer>
                 <authentication class="nav navbar-nav navbar-right"
                     :getUser="getUser"
                     :setUser="setUser">
@@ -26,6 +28,7 @@ import { db } from './database'
 import Authentication from './components/Authentication'
 import Search from './components/Search'
 import TopRestaurants from './components/TopRestaurants'
+import AddDish from './components/AddDish'
 import DishInfo from './components/DishInfo'
     
 export default {
@@ -41,8 +44,9 @@ export default {
     components: {
         Authentication,
         Search,
-        TopRestaurants,
+        AddDish
         DishInfo
+        TopRestaurants,
     },
     methods: {
         // allow child component to change user value
