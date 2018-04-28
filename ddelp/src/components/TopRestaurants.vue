@@ -14,7 +14,7 @@
                 All Time
               </v-btn>
             </v-btn-toggle>
-    <h1 class="list-title">Top 5 Dishes</h1>
+    <h1 class="list-title">Top Dishes</h1>
     <v-layout>
     <v-card>
     <v-list three-line>
@@ -43,6 +43,7 @@
 <script>
 import Firebase from 'firebase'
 import { dishesRef } from '../database'
+import { dishesVotesRef } from '../database'
 
 export default {
     data () {
@@ -52,7 +53,8 @@ export default {
     }, 
     
     firebase: {
-        dishes: dishesRef  
+        dishes: dishesRef,
+        dishesVotes: dishesVotesRef
     }
     , computed: {
         sortedDishes() {
@@ -60,8 +62,11 @@ export default {
                 return b.numVotes - a.numVotes;
             });
         }
-    },
-    props: [
+//        , limDishes: function () {
+//            return this.sortedDishes.slice(0, 5)
+//        }
+    }
+    , props: [
         'title',
         'setDish',
         'onVote'
