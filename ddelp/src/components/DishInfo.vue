@@ -58,15 +58,20 @@ export default {
             console.log(this.commentText)
             dishesRef.child(dish['.key']).once('value', function(snapshot) {
                 if (this.commentText) {
-                    var comments = snapshot.val().comments
-                    if (comments == null) {
-                        var comments = []
+                    var newComments = snapshot.val().comments
+                    if (newComments == null) {
+                        var newComments = []
                     }
                     var d = new Date()
-                    comments.push({
+                    var date = (d.getMonth() + 1) + '/' + d.getDate()
+                    newComments.push({
                         user: user,
                         text: this.commentText,
-                        date: d
+                        date: date
+                    })
+                    
+                    dishesRef.child(dish['.key']).update({
+                        comments: newComments
                     })
                 }
             })
