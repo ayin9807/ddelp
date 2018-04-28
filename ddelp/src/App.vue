@@ -70,7 +70,6 @@ export default {
         },
         viewDish (value) {
             this.dishDict = value
-            console.log(this.dishDict)
         },
         
         exitAddForm () {

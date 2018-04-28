@@ -57,20 +57,13 @@ export default {
     methods: {
         getURLPromise (f) {
             return storageRef.child('images/' + f.name).put(f).then(function(snapshot) {
+                // console.log(snapshot.downloadURL)
                 return snapshot.downloadURL;  
             });
         }, 
         
         addDish () {
             var images = document.getElementById('dish-files')
-            if (images.files.length > 0) {
-                var file = images.files
-                var allURLs = []
-                for (var i = 0; i < file.length; i++) {
-                    allURLs.push(this.getURLPromise(file[i]));
-                }
-            }
-            
             var name = this.newDishName
             var location = this.newDishLocation
             var upvotes = this.newDishUpVotes
@@ -78,7 +71,26 @@ export default {
             var comments = this.newDishComments
             var availability = this.newDishAvailability
             
-            Promise.all(allURLs).then(function(results) {
+            if (images.files.length > 0) {
+                var file = images.files
+                var allURLs = []
+                for (var i = 0; i < file.length; i++) {
+                    allURLs.push(this.getURLPromise(file[i]));
+                }
+
+                Promise.all(allURLs).then(function(results) {
+                    dishesRef.push({
+                        dishName: name,
+                        location: location,
+                        upVotes: upvotes,
+                        downVotes: downvotes,
+                        numVotes: 0,
+                        comments: comments,
+                        availability: availability,
+                        images: results
+                    });
+                })
+            } else {
                 dishesRef.push({
                     dishName: name,
                     location: location,
@@ -87,9 +99,8 @@ export default {
                     numVotes: 0,
                     comments: comments,
                     availability: availability,
-                    images: results
                 });
-            })
+            }
             
             this.resetAddDish();
         }, 

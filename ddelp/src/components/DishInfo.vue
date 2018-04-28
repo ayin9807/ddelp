@@ -21,7 +21,22 @@
         <v-layout row justify-left>
             <h3>Comments from your fellow Duke students:</h3>
         </v-layout>
-        
+        <v-card color="blue-grey lighten-4" v-if="dish.comments">
+            <v-list two-line>
+                <template v-for="c in dish.comments">
+                    <v-list-tile avatar>
+                        <v-list-tile-avatar>
+                            <img v-if="c.avatar">
+                            <img v-else src="https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png?w=1280">
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                            <v-list-tile-sub-title>{{ c.user.name }} &mdash; {{ c.text }}</v-list-tile-sub-title> 
+                            <v-list-tile-sub-title>{{ c.date }} </v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </template>
+            </v-list>
+        </v-card>
         <v-layout row justify-center>
             <v-text-field v-if="user" v-model="commentText" placeholder="Leave a comment..." @keyup.enter="addComment(dish, user)"></v-text-field>
         </v-layout>
