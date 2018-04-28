@@ -10,16 +10,20 @@
                 <h1>{{ dish.dishName }}</h1>
             </v-card-title>
         </v-layout>
-        <v-layout row justify-center>
+        <v-layout row justify-center align-center>
             <v-card-text><h3>Location: {{ dish.location }}</h3></v-card-text>
-            <v-card-text><h3>{{ dish.numVotes }} votes so far</h3></v-card-text>
+            <v-card-text>
+                <v-btn flat @click="vote(dish, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
+                <h3>{{ dish.numVotes }}</h3>
+                <v-btn flat @click="vote(dish, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
+            </v-card-text>
         </v-layout>
         <v-layout row justify-left>
             <h3>Comments from your fellow Duke students:</h3>
         </v-layout>
         
         <v-layout row justify-center>
-            <v-text-field v-model="commentText" placeholder="Leave a comment"></v-text-field>
+            <v-text-field v-if="user" v-model="commentText" placeholder="Leave a comment..." @keyup.enter="addComment(dish, user)"></v-text-field>
         </v-layout>
         </v-container>
     </v-card>
@@ -41,7 +45,8 @@ export default {
     props: [
         'dish',
         'onClick',
-        'user'
+        'user',
+        'onVote'
     ],
 
     methods: {
@@ -49,8 +54,27 @@ export default {
             this.onClick();
         },
 
-        addComment () {
-            
+        addComment (dish, user) {
+            console.log(this.commentText)
+            dishesRef.child(dish['.key']).once('value', function(snapshot) {
+                if (this.commentText) {
+                    var comments = snapshot.val().comments
+                    if (comments == null) {
+                        var comments = []
+                    }
+                    var d = new Date()
+                    comments.push({
+                        user: user,
+                        text: this.commentText,
+                        date: d
+                    })
+                }
+            })
+            this.commentText = ''
+        },
+        
+        vote (dish, amount) {
+            this.onVote(dish, amount)
         }
     }
 }
