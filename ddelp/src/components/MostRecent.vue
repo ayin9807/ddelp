@@ -4,7 +4,7 @@
     <v-layout>
     <v-card>
     <v-list three-line>
-        <template v-for="(key, index) in sortedDishes">
+        <template v-for="(key, index) in dishesAdded">
             <div>
             <v-list-tile avatar ripple :key="index" @click="updateDish(key)">
                 <v-list-tile-content>
@@ -29,23 +29,20 @@
 <script>
 import Firebase from 'firebase'
 import { dishesRef } from '../database'
+import { dishesAddedRef } from '../database'
+
+ 
 
 export default {
     data () {
         return {
-            toggle_one: 'all'
+            toggle_one: 'all',
+            sorted: false
         }
-    }, 
-    
-    firebase: {
-        dishes: dishesRef  
     }
-    , computed: {
-        sortedDishes() {
-            return this.dishes.sort((a, b) => {
-                return b.dateAdded - a.dateAdded;
-            });
-        }
+    ,firebase: {
+        dishes: dishesRef,
+        dishesAdded: dishesAddedRef
     },
     props: [
         'title',

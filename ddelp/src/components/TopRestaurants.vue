@@ -18,7 +18,7 @@
     <v-layout>
     <v-card>
     <v-list three-line>
-        <template v-for="(key, index) in sortedDishes">
+        <template v-for="(key, index) in limDishes">
             <div v-show="key.visible">
             <v-list-tile avatar ripple :key="index" @click="updateDish(key)">
                 <v-list-tile-content>
@@ -43,6 +43,7 @@
 <script>
 import Firebase from 'firebase'
 import { dishesRef } from '../database'
+import { dishesVotesRef } from '../database'
 
 export default {
     data () {
@@ -52,16 +53,19 @@ export default {
     }, 
     
     firebase: {
-        dishes: dishesRef  
+        dishes: dishesRef,
+        dishesVotes: dishesVotesRef
     }
     , computed: {
         sortedDishes() {
             return this.dishes.sort((a, b) => {
                 return b.numVotes - a.numVotes;
             });
+        }, limDishes: function () {
+            return this.sortedDishes.slice(0, 5)
         }
-    },
-    props: [
+    }
+    , props: [
         'title',
         'setDish',
         'onVote'

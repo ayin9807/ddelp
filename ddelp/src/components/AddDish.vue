@@ -51,28 +51,25 @@ export default {
             newDishDownVotes: [],
             newDishComments: [],
             newDishAvailability: [],
-            newShow: true,
-            newDateAdded: ''
+            newShow: true
         }
     },
     methods: {
         getURLPromise (f) {
             return storageRef.child('images/' + f.name).put(f).then(function(snapshot) {
-                // console.log(snapshot.downloadURL)
                 return snapshot.downloadURL;  
             });
         }, 
         
         addDish () {
-            var images = document.getElementById('dish-files')
-            var name = this.newDishName
-            var location = this.newDishLocation
-            var upvotes = this.newDishUpVotes
-            var downvotes = this.newDishDownVotes
-            var comments = this.newDishComments
-            var availability = this.newDishAvailability
-            var show = this.newShow
-            var date = new Date()
+            var images = document.getElementById('dish-files');
+            var name = this.newDishName;
+            var location = this.newDishLocation;
+            var upvotes = this.newDishUpVotes;
+            var downvotes = this.newDishDownVotes;
+            var comments = this.newDishComments;
+            var availability = this.newDishAvailability;
+            var show = this.newShow;
             
             if (images.files.length > 0) {
                 var file = images.files
@@ -91,8 +88,7 @@ export default {
                         comments: comments,
                         availability: availability,
                         images: results,
-                        visible: show,
-                        dateAdded: date
+                        visible: show
                     });
                 })
             } else {
@@ -104,8 +100,7 @@ export default {
                     numVotes: 0,
                     comments: comments,
                     availability: availability,
-                    visible: show,
-                    dateAdded: date
+                    visible: show
                 });
             }
             

@@ -15,4 +15,5 @@ var fbApp = Firebase.initializeApp(config)
 export const db = fbApp.database()
     // create useful endpoints within the database
 export const dishesRef = db.ref('dishes')
+export const dishesAddedRef = db.ref('dishes').orderByKey().limitToLast(5)
 export const storageRef = fbApp.storage().ref()
