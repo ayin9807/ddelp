@@ -14,11 +14,11 @@
                 All Time
               </v-btn>
             </v-btn-toggle>
-    <h1 class="list-title">Top 5 Dishes</h1>
+    <h1 class="list-title">Top Dishes</h1>
     <v-layout>
     <v-card>
     <v-list three-line>
-        <template v-for="(key, index) in limDishes">
+        <template v-for="(key, index) in sortedDishes">
             <div v-show="key.visible">
             <v-list-tile avatar ripple :key="index" @click="updateDish(key)">
                 <v-list-tile-content>
@@ -61,9 +61,10 @@ export default {
             return this.dishes.sort((a, b) => {
                 return b.numVotes - a.numVotes;
             });
-        }, limDishes: function () {
-            return this.sortedDishes.slice(0, 5)
         }
+//        , limDishes: function () {
+//            return this.sortedDishes.slice(0, 5)
+//        }
     }
     , props: [
         'title',
