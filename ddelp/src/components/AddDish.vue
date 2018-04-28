@@ -57,7 +57,6 @@ export default {
     methods: {
         getURLPromise (f) {
             return storageRef.child('images/' + f.name).put(f).then(function(snapshot) {
-                console.log(snapshot.downloadURL)
                 return snapshot.downloadURL;  
             });
         }, 
@@ -72,15 +71,22 @@ export default {
                 }
             }
             
+            var name = this.newDishName
+            var location = this.newDishLocation
+            var upvotes = this.newDishUpVotes
+            var downvotes = this.newDishDownVotes
+            var comments = this.newDishComments
+            var availability = this.newDishAvailability
+            
             Promise.all(allURLs).then(function(results) {
                 dishesRef.push({
-                    dishName: this.newDishName,
-                    location: this.newDishLocation,
-                    upVotes: this.newDishUpVotes,
-                    downVotes: this.newDishDownVotes,
+                    dishName: name,
+                    location: location,
+                    upVotes: upvotes,
+                    downVotes: downvotes,
                     numVotes: 0,
-                    comments: this.newDishComments,
-                    availability: this.newDishAvailability,
+                    comments: comments,
+                    availability: availability,
                     images: results
                 });
             })

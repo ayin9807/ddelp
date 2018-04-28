@@ -15,8 +15,8 @@
                 </authentication>
             </v-toolbar>
             <div id="main-page">
-                <top-restaurants :title="day" :setDish="viewDish" v-if="displayHome"></top-restaurants>
-                <top-restaurants v-if="displayHome" :setDish="viewDish"></top-restaurants>
+                <top-restaurants :title="day" :setDish="viewDish" :onVote="vote" v-if="displayHome"></top-restaurants>
+                <top-restaurants v-if="displayHome" :setDish="viewDish" :onVote="vote"></top-restaurants>
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
                 <dish-info v-if="dishDict" :dish="dishDict" :user="user" :onClick="exitDishInfo"></dish-info>
             </div>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import Firebase from 'firebase'
+import { dishesRef } from './database'
 import { db } from './database'
 import Authentication from './components/Authentication'
 import Search from './components/Search'
@@ -78,6 +80,40 @@ export default {
         
         exitDishInfo () {
             this.dishDict = null
+        },
+        
+        vote (dish, amount) {
+            dishesRef.child(dish['.key']).once('value', function(snapshot) {
+                var newNumVotes = snapshot.val().numVotes;
+                newNumVotes += amount;
+                
+                var d = new Date();
+                
+                if (amount > 0) { //upvoting
+                    var newUpVotes = snapshot.val().upVotes;
+                    if (newUpVotes == null) {
+                        newUpVotes = [];
+                    }
+                    newUpVotes.push(d);
+                    dishesRef.child(dish['.key']).update({
+                        numVotes : newNumVotes,
+                        upVotes: newUpVotes
+                    });
+                }
+                
+                if (amount < 0) { //downvoting
+                    var newDownVotes = snapshot.val().downVotes;
+                    if (newDownVotes == null) {
+                        newDownVotes = [];
+                    }
+                    newDownVotes.push(d);
+                    dishesRef.child(dish['.key']).update({
+                        numVotes : newNumVotes,
+                        downVotes: newDownVotes
+                    });
+                }
+                
+            });
         }
     }
 }
