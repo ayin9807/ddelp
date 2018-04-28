@@ -1,4 +1,5 @@
 <template>
+<div >
     <ul>
         <li v-if="user" style="color: white; font-size: 18px; font-weight: bold;">Hi, {{user.name}}!</li>
         <v-btn v-if="user"><a><span class="glyphicon glyphicon-log-out"></span>Profile</a></v-btn>
@@ -7,6 +8,7 @@
         <!-- sign in "popup" container does not popup for email authentication, so provide so styling help -->
         <div id="firebaseui-auth-container" :class="{ popup: isShown }"></div>
     </ul>
+</div>
 </template>
 
 <script>
