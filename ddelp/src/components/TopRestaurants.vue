@@ -3,9 +3,9 @@
     <h1 id="list-title">Top 5 Dishes</h1>
     <v-list three-line>
         <template v-for="(key, value, index) in dishes">
-            <v-list-tile avatar ripple :key="value">
+            <v-list-tile avatar ripple :key="value" @click="updateDish(key)">
                 <v-list-tile-content>
-                    <v-list-tile-title @click="printkey(key)">{{ key.dishName }}</v-list-tile-title>
+                    <v-list-tile-title>{{ key.dishName }}</v-list-tile-title>
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
@@ -35,8 +35,7 @@ export default {
     }, 
     
     firebase: {
-        dishes: dishesRef
-        
+        dishes: dishesRef  
     },
     
     props: [
@@ -46,11 +45,8 @@ export default {
     
     methods: {
         updateDish: function(value) {
+            // console.log(key['.key']);
             this.setDish(value)
-        },
-        
-        printkey(key){
-            console.log(key['.key']);
         },
         
         upvote () {

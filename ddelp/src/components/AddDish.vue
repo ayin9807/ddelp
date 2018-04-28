@@ -1,21 +1,21 @@
 <template>
 <div>
-    <div></div>
     <div class="add-item">
-         <form v-if="isAddingDish" @submit.prevent="addDish()">
+        <form @submit.prevent="addDish()">
             <v-layout row>
-               <label for="cardTitle">Dish Name: </label>
-                <input class="input-margin" type="text" id="cardTitle" v-model="newDishName" /> </v-layout>
-             <v-layout row>
-               <label for="cardTitle">Dish Location: </label>
-                <input class="input-margin" type="text" id="cardTitle" v-model="newDishLocation" /> </v-layout>
-                <v-layout row>
-                   <v-btn type="submit" value="Add Card">Add Dish</v-btn>
-                   <v-btn type="reset" value="Cancel" @click="resetAddDish()">Cancel</v-btn>
-                </v-layout>
-         </form>
-                <v-btn v-else @click="isAddingDish = true">Add Dish</v-btn>
-                </div>
+                <label for="cardTitle">Dish Name: </label>
+                <input class="input-margin" type="text" id="cardTitle" v-model="newDishName" /> 
+            </v-layout>
+            <v-layout row>
+                <label for="cardTitle">Dish Location: </label>
+                <input class="input-margin" type="text" id="cardTitle" v-model="newDishLocation" /> 
+            </v-layout>
+            <v-layout row>
+                   <v-btn type="submit" value="Add Card" @click="addDish">Add Dish</v-btn>
+                   <v-btn type="reset" value="Cancel" @click="resetAddDish">Cancel</v-btn>
+            </v-layout>
+        </form>
+    </div>
 </div>
 </template>
 
@@ -26,13 +26,10 @@ import { dishesRef } from '../database'
 export default {
     data () {
         return {
-            isAddingDish: false,
             newDishName: '',
             newDishLocation:'',
             newDishVotes:[],
             newDishComments:[]
-            
-            
         }
     },
     methods:{
@@ -46,13 +43,18 @@ export default {
             
             });
             this.resetAddDish();
-        }, resetAddDish(){
+        }, 
+        
+        resetAddDish(){
             this.isAddingDish = false;
             this.newDishName = '';
             this.newDishLocation='';
             this.newDishVotes=[];
             this.newDishComments=[];
-        }
+            this.onClick(false);
+        },
+        
+        
     },
     
     firebase: {
@@ -60,7 +62,8 @@ export default {
     },
     
     props: [
-        'title'
+        'title',
+        'onClick'
     ]
 }
 </script>

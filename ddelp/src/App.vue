@@ -7,16 +7,17 @@
                 <v-spacer></v-spacer>
                 <search></search>
                 <v-spacer></v-spacer>
-                <addDish></addDish>
+                <v-btn @click="isAddingDish = true"><a><span class="glyphicon"></span>Add Dish</a></v-btn>
                 <v-spacer></v-spacer>
                 <authentication class="nav navbar-nav navbar-right"
                     :getUser="getUser"
                     :setUser="setUser">
                 </authentication>
             </v-toolbar>
-            <div id="top-fives">
-                <top-restaurants :title="day" :setDish="viewDish"></top-restaurants>
-                <top-restaurants></top-restaurants>
+            <div id="main-page">
+                <top-restaurants :title="day" :setDish="viewDish" v-if="isAddingDish == false"></top-restaurants>
+                <top-restaurants v-if="isAddingDish == false" :onClick="exitAddForm"></top-restaurants>
+                <add-dish v-if="isAddingDish == true" :onClick="exitAddForm"></add-dish>
             </div>
         </v-content>
     </v-app>
@@ -38,7 +39,8 @@ export default {
         // useful data about the current user
         user: null,
         day: 'Monday',
-        dishName: null
+        dishDict: null,
+        isAddingDish: false
     }
   },
     components: {
@@ -57,8 +59,12 @@ export default {
             this.user = user
         },
         viewDish (value) {
-            this.dishName = value
-            console.log(this.dishName)
+            this.dishDict = value
+            console.log(this.dishDict)
+        },
+        
+        exitAddForm () {
+            this.isAddingDish = false
         }
     }
 }
@@ -84,7 +90,7 @@ h1 {
     color: white;
 }
     
-#top-fives {
+#main-page {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
