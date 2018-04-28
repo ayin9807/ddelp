@@ -1,16 +1,16 @@
 <template>
 <div >
      <v-btn-toggle v-model="toggle_one">
-              <v-btn @click="filter('today', 'date')" flat v-model="toggle_one" value="today">
+              <v-btn @click="filter('today', 'date')" flat  value="today">
                 Today
               </v-btn>
-              <v-btn flat value="week">
+              <v-btn @click="filter('week', 'date')" flat value="week">
                 This Week
               </v-btn>
-              <v-btn flat value="month">
+              <v-btn @click="filter('month', 'date')" flat value="month">
                 This Month
               </v-btn>
-              <v-btn  flat value="all">
+              <v-btn  @click="filter('all', 'date')" value="all">
                 All Time
               </v-btn>
             </v-btn-toggle>
@@ -19,6 +19,7 @@
     <v-card>
     <v-list three-line>
         <template v-for="(key, index) in sortedDishes">
+            <div v-show="key.visible">
             <v-list-tile avatar ripple :key="index" @click="updateDish(key)">
                 <v-list-tile-content>
                     <v-list-tile-title>{{ key.dishName }}</v-list-tile-title>
@@ -31,6 +32,7 @@
                 </v-list-tile-action>
             </v-list-tile>
             <v-divider v-if="index+1 < dishes.length"></v-divider>
+                </div>
         </template>
     </v-list>
     </v-card>
@@ -45,7 +47,7 @@ import { dishesRef } from '../database'
 export default {
     data () {
         return {
-            toggle_one: 'today'
+            toggle_one: 'all'
         }
     }, 
     
@@ -82,22 +84,72 @@ export default {
                 if(criteria == 'today'){
                     dishesRef.once('value', function (dishesSnapshot) {
                         var dishes = dishesSnapshot.val();
-//                        listSnapshot.forEach(function (listSnapshot) {
-                            listSnapshot.child('upvotes').forEach(function (upVoteSnapshot) {
-                                var upvote = upVoteSnapshot.val();
-                                if (card.timestamp != filterDateInput) {
-                                    console.log(filterDateInput);
-                                    cardSnapshot.ref.update({
-                                        'show': false
-                                    });
-                                }
-                                else {
-                                    cardSnapshot.ref.update({
-                                        'show': true
+                        dishesSnapshot.forEach(function (dishesSnapshot) {
+                            dishesSnapshot.ref.update({
+                                        'visible': false
+                                });
+                            dishesSnapshot.child('upVotes').forEach(function (upVoteSnapshot) {
+                                
+                                var d = new Date();
+                                var today = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+                                var upvoteDate = upVoteSnapshot.val();
+                                if (today == upvoteDate) {
+                                    dishesSnapshot.ref.update({
+                                        'visible': true
                                     });
                                 }
                             });
-//                        });
+                        });
+                    });
+                } else if(criteria == 'week'){
+                    dishesRef.once('value', function (dishesSnapshot) {
+                        var dishes = dishesSnapshot.val();
+                        dishesSnapshot.forEach(function (dishesSnapshot) {
+                            dishesSnapshot.ref.update({
+                                        'visible': false
+                                });
+                            dishesSnapshot.child('upVotes').forEach(function (upVoteSnapshot) {
+                                
+                                var d = new Date();
+                                var today = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+                                var upvoteDate = upVoteSnapshot.val();
+                                if (today.split("/")[0] == upvoteDate.split("/")[0]) { //check month
+                                    if(today.split("/")[1] - 7 <= upvoteDate.split("/")[1] <= today.split("/")[1] + 7)
+                                    dishesSnapshot.ref.update({
+                                        'visible': true
+                                    });
+                                }
+                            });
+                        });
+                    });
+                } else if(criteria == 'month'){
+                    dishesRef.once('value', function (dishesSnapshot) {
+                        var dishes = dishesSnapshot.val();
+                        dishesSnapshot.forEach(function (dishesSnapshot) {
+                            dishesSnapshot.ref.update({
+                                        'visible': false
+                                });
+                            dishesSnapshot.child('upVotes').forEach(function (upVoteSnapshot) {
+                                
+                                var d = new Date();
+                                var today = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+                                var upvoteDate = upVoteSnapshot.val();
+                                if (today.split("/")[0] == upvoteDate.split("/")[0]) {
+                                    dishesSnapshot.ref.update({
+                                        'visible': true
+                                    });
+                                }
+                            });
+                        });
+                    });
+                } else if(criteria == 'all'){
+                    dishesRef.once('value', function (dishesSnapshot) {
+                        var dishes = dishesSnapshot.val();
+                        dishesSnapshot.forEach(function (dishesSnapshot) {
+                            dishesSnapshot.ref.update({
+                                        'visible': true
+                                });
+                        });
                     });
                 }
             }

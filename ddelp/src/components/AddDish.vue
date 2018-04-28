@@ -51,7 +51,8 @@ export default {
             newDishDownVotes: [],
             newDishComments: [],
             newDishAvailability: [],
-            newDishImages: []
+            newDishImages: [],
+            newShow: true
         }
     },
     methods: {
@@ -77,6 +78,7 @@ export default {
             var downvotes = this.newDishDownVotes
             var comments = this.newDishComments
             var availability = this.newDishAvailability
+            var show = this.newShow
             
             Promise.all(allURLs).then(function(results) {
                 dishesRef.push({
@@ -87,7 +89,8 @@ export default {
                     numVotes: 0,
                     comments: comments,
                     availability: availability,
-                    images: results
+                    images: results,
+                    visible: show
                 });
             })
             
