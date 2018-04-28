@@ -15,7 +15,12 @@
                 </authentication>
             </v-toolbar>
             <div id="main-page">
+                <v-container>
                 <top-restaurants :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></top-restaurants>
+                    </v-container>
+                <v-container>
+                <recent-dishes :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></recent-dishes>
+                    </v-container>
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
                 <dish-info v-if="dishDict" :dish="dishDict" :user="user" :onClick="exitDishInfo" :onVote="vote"></dish-info>
             </div>
@@ -31,6 +36,7 @@ import { db } from './database'
 import Authentication from './components/Authentication'
 import Search from './components/Search'
 import TopRestaurants from './components/TopRestaurants'
+import RecentDishes from './components/MostRecent'
 import AddDish from './components/AddDish'
 import DishInfo from './components/DishInfo'
     
@@ -58,6 +64,7 @@ export default {
         AddDish,
         DishInfo,
         TopRestaurants,
+        RecentDishes
     },
     
     methods: {
@@ -160,7 +167,4 @@ li {
 a {
   color: #42b983;
 }
-    z{
-        z-index:99
-    }
 </style>

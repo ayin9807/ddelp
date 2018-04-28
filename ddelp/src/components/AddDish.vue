@@ -51,7 +51,9 @@ export default {
             newDishDownVotes: [],
             newDishComments: [],
             newDishAvailability: [],
-            newDishImages: []
+            newDishImages: [],
+            newShow: true,
+            newDateAdded: ''
         }
     },
     methods: {
@@ -70,6 +72,8 @@ export default {
             var downvotes = this.newDishDownVotes
             var comments = this.newDishComments
             var availability = this.newDishAvailability
+            var show = this.newShow
+            var date = new Date()
             
             if (images.files.length > 0) {
                 var file = images.files
@@ -99,6 +103,9 @@ export default {
                     numVotes: 0,
                     comments: comments,
                     availability: availability,
+                    images: results,
+                    visible: show,
+                    dateAdded: date
                 });
             }
             
@@ -112,6 +119,7 @@ export default {
             this.newDishComments=[];
             this.newDishDaysOfTheWeek = [];
             this.onClick();
+            this.newDateAdded = '';
         },
         
         

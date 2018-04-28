@@ -1,25 +1,11 @@
 <template>
 <div >
-     <v-btn-toggle v-model="toggle_one">
-              <v-btn @click="filter('today', 'date')" flat  value="today">
-                Today
-              </v-btn>
-              <v-btn @click="filter('week', 'date')" flat value="week">
-                This Week
-              </v-btn>
-              <v-btn @click="filter('month', 'date')" flat value="month">
-                This Month
-              </v-btn>
-              <v-btn  @click="filter('all', 'date')" value="all">
-                All Time
-              </v-btn>
-            </v-btn-toggle>
-    <h1 class="list-title">Top 5 Dishes</h1>
+    <h1 class="list-title">Most Recently Added</h1>
     <v-layout>
     <v-card>
     <v-list three-line>
         <template v-for="(key, index) in sortedDishes">
-            <div v-show="key.visible">
+            <div>
             <v-list-tile avatar ripple :key="index" @click="updateDish(key)">
                 <v-list-tile-content>
                     <v-list-tile-title>{{ key.dishName }}</v-list-tile-title>
@@ -57,7 +43,7 @@ export default {
     , computed: {
         sortedDishes() {
             return this.dishes.sort((a, b) => {
-                return b.numVotes - a.numVotes;
+                return b.dateAdded - a.dateAdded;
             });
         }
     },
