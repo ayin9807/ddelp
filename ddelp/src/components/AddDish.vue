@@ -52,7 +52,8 @@ export default {
             newDishComments: [],
             newDishAvailability: [],
             newDishImages: [],
-            newShow: true
+            newShow: true,
+            newDateAdded: ''
         }
     },
     methods: {
@@ -79,6 +80,7 @@ export default {
             var comments = this.newDishComments
             var availability = this.newDishAvailability
             var show = this.newShow
+            var date = new Date()
             
             Promise.all(allURLs).then(function(results) {
                 dishesRef.push({
@@ -90,7 +92,8 @@ export default {
                     comments: comments,
                     availability: availability,
                     images: results,
-                    visible: show
+                    visible: show,
+                    dateAdded: date
                 });
             })
             
@@ -104,6 +107,7 @@ export default {
             this.newDishComments=[];
             this.newDishDaysOfTheWeek = [];
             this.onClick();
+            this.newDateAdded = '';
         },
         
         
