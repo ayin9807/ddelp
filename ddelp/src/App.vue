@@ -9,14 +9,13 @@
                 <v-spacer></v-spacer>
                 <v-btn @click="isAddingDish = true"><a><span class="glyphicon"></span>Add Dish</a></v-btn>
                 <v-spacer></v-spacer>
-                <authentication class="nav navbar-nav navbar-right"
+                <authentication class="z nav navbar-nav navbar-right"
                     :getUser="getUser"
                     :setUser="setUser">
                 </authentication>
             </v-toolbar>
             <div id="main-page">
-                <top-restaurants :title="day" :setDish="viewDish" :onVote="vote" v-if="displayHome"></top-restaurants>
-                <top-restaurants v-if="displayHome" :setDish="viewDish" :onVote="vote"></top-restaurants>
+                <top-restaurants :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></top-restaurants>
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
                 <dish-info v-if="dishDict" :dish="dishDict" :user="user" :onClick="exitDishInfo" :onVote="vote"></dish-info>
             </div>
@@ -88,13 +87,14 @@ export default {
                 newNumVotes += amount;
                 
                 var d = new Date();
+                var date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
                 
                 if (amount > 0) { //upvoting
                     var newUpVotes = snapshot.val().upVotes;
                     if (newUpVotes == null) {
                         newUpVotes = [];
                     }
-                    newUpVotes.push(d);
+                    newUpVotes.push(date);
                     dishesRef.child(dish['.key']).update({
                         numVotes : newNumVotes,
                         upVotes: newUpVotes
@@ -106,7 +106,7 @@ export default {
                     if (newDownVotes == null) {
                         newDownVotes = [];
                     }
-                    newDownVotes.push(d);
+                    newDownVotes.push(date);
                     dishesRef.child(dish['.key']).update({
                         numVotes : newNumVotes,
                         downVotes: newDownVotes
@@ -161,4 +161,7 @@ li {
 a {
   color: #42b983;
 }
+    z{
+        z-index:99
+    }
 </style>
