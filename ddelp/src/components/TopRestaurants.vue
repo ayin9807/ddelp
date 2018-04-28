@@ -11,9 +11,9 @@
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <v-icon @click="vote(key, 1)">keyboard_arrow_up</v-icon>
+                    <v-btn flat @click.stop="vote(key, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
                     <v-list-tile-action-text>{{ key.numVotes }}</v-list-tile-action-text>
-                    <v-icon @click="vote(key, -1)">keyboard_arrow_down</v-icon>
+                    <v-btn flat @click.stop="vote(key, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
                 </v-list-tile-action>
             </v-list-tile>
             <v-divider v-if="index+1 < dishes.length"></v-divider>
@@ -50,12 +50,7 @@ export default {
             this.setDish(value)
         },
         
-        vote(dish, amount) {
-            // stop propagation
-            if (!e) var e = window.event;
-            e.cancelBubble = true;
-            if (e.stopPropagation) e.stopPropagation();
-            
+        vote(dish, amount) {            
             this.onVote(dish, amount)
         }
     }

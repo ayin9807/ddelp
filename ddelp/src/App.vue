@@ -18,7 +18,7 @@
                 <top-restaurants :title="day" :setDish="viewDish" :onVote="vote" v-if="displayHome"></top-restaurants>
                 <top-restaurants v-if="displayHome" :setDish="viewDish" :onVote="vote"></top-restaurants>
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
-                <dish-info v-if="dishDict" :dish="dishDict" :user="user" :onClick="exitDishInfo"></dish-info>
+                <dish-info v-if="dishDict" :dish="dishDict" :user="user" :onClick="exitDishInfo" :onVote="vote"></dish-info>
             </div>
         </v-content>
     </v-app>
