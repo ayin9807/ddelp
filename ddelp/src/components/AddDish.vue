@@ -104,7 +104,6 @@ export default {
                     numVotes: 0,
                     comments: comments,
                     availability: availability,
-                    images: results,
                     visible: show,
                     dateAdded: date
                 });

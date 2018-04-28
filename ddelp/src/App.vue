@@ -15,12 +15,8 @@
                 </authentication>
             </v-toolbar>
             <div id="main-page">
-                <v-container>
                 <top-restaurants :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></top-restaurants>
-                    </v-container>
-                <v-container>
-                <recent-dishes :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></recent-dishes>
-                    </v-container>
+                <recent-dishes :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
                 <dish-info v-if="dishDict" :dish="dishDict" :user="user" :onClick="exitDishInfo" :onVote="vote"></dish-info>
             </div>
