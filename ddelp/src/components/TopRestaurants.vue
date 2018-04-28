@@ -9,9 +9,9 @@
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <v-icon @click="upvote">keyboard_arrow_up</v-icon>
+                    <v-icon @click="vote(key, 1)">keyboard_arrow_up</v-icon>
                     <v-list-tile-action-text>{{ key.numVotes }}</v-list-tile-action-text>
-                    <v-icon @click="downvote">keyboard_arrow_down</v-icon>
+                    <v-icon @click="vote(key, -1)">keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
             </v-list-tile>
 <!--            <v-divider v-if="index+1 < Object.keys(dishName).length"></v-divider>-->
@@ -25,7 +25,6 @@
 <script>
 import Firebase from 'firebase'
 import { dishesRef } from '../database'
-//var content = require('../assets/dishes.json')
 
 export default {
     data () {
@@ -48,20 +47,49 @@ export default {
             // console.log(key['.key']);
             this.setDish(value)
         },
+        vote(dish, amount){
+            dishesRef.child(dish['.key']).once('value', function(snapshot) {
+                var newNumVotes = snapshot.val().numVotes;
+                newNumVotes += amount;
+                var d = new Date();
+                if(amount >0){ //upvoting
+                    var newUpVotes = snapshot.val().upVotes;
+                    if(newUpVotes == null){
+                        newUpVotes = [];
+                    }
+                    newUpVotes.push(d);
+                    dishesRef.child(dish['.key']).update({
+                    numVotes : newNumVotes,
+                    upVotes: newUpVotes
+                    
+                });
+                }
+                if(amount <0){ //downvoting
+                    var newDownVotes = snapshot.val().downVotes;
+                    if(newDownVotes == null){
+                        newDownVotes = [];
+                    }
+                    newDownVotes.push(d);
+                    dishesRef.child(dish['.key']).update({
+                    numVotes : newNumVotes,
+                    downVotes: newDownVotes
+                });
+                }
+                
+            });
+     },
         
-        upvote () {
-            
-        },
-        
-        downvote () {
-            
+        printkey(key){
+            console.log(key['.key']);
         }
     }
 }
 </script>
 
 <style>
-
+    v-list-tile{
+        margin-bottom: 10px
+    }
 #list-title {
     color: darkgray;
 }

@@ -28,7 +28,8 @@ export default {
         return {
             newDishName: '',
             newDishLocation:'',
-            newDishVotes:[],
+            newDishUpVotes:[],
+            newDishDownVotes:[],
             newDishComments:[]
         }
     },
@@ -37,7 +38,8 @@ export default {
             dishesRef.push({
                 dishName: this.newDishName,
                 location: this.newDishLocation,
-                votes: this.newDishVotes,
+                upVotes: this.newDishUpVotes,
+                downVotes: this.newDishDownVotes,
                 numVotes: 0,
                 comments: this.newDishComments
             
