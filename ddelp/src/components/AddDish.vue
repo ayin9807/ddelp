@@ -1,59 +1,100 @@
 <template>
 <div>
-    <div class="add-item">
-        <form @submit.prevent="addDish()">
-            <v-layout row>
-                <label for="cardTitle">Dish Name: </label>
-                <input class="input-margin" type="text" id="cardTitle" v-model="newDishName" /> 
-            </v-layout>
-            <v-layout row>
-                <label for="cardTitle">Dish Location: </label>
-                <input class="input-margin" type="text" id="cardTitle" v-model="newDishLocation" /> 
-            </v-layout>
-            <v-layout row>
-                   <v-btn type="submit" value="Add Card" @click="addDish">Add Dish</v-btn>
-                   <v-btn type="reset" value="Cancel" @click="resetAddDish">Cancel</v-btn>
-            </v-layout>
-        </form>
+    <div id="add-dish">
+    <v-card width="600px">
+        <v-container fluid>
+        <v-card-title><h1 style="color: darkgray;">Add Dish</h1></v-card-title>
+        <v-layout row justify-center>
+            <v-text-field id="cardTitle" v-model="newDishName" placeholder="Dish Name"></v-text-field>
+        </v-layout>
+        <v-layout row justify-center>
+            <v-text-field id="cardTitle" v-model="newDishLocation" placeholder="Location"></v-text-field>
+        </v-layout>
+        <v-layout row>
+            <h3 style="color:darkgray;">When is this dish available?</h3>
+        </v-layout>
+        <v-layout row justify-center>
+            <v-checkbox label="Mon" v-model="newDishAvailability" value="Mon"></v-checkbox>
+            <v-checkbox label="Tue" v-model="newDishAvailability" value="Tue"></v-checkbox>
+            <v-checkbox label="Wed" v-model="newDishAvailability" value="Wed"></v-checkbox>
+            <v-checkbox label="Thur" v-model="newDishAvailability" value="Thur"></v-checkbox>
+            <v-checkbox label="Fri" v-model="newDishAvailability" value="Fri"></v-checkbox>
+            <v-checkbox label="Sat" v-model="newDishAvailability" value="Sat"></v-checkbox>
+            <v-checkbox label="Sun" v-model="newDishAvailability" value="Sun"></v-checkbox>
+        </v-layout>
+        <v-layout row>
+            <h3 style="color:darkgray;">Have pictures?</h3>
+        </v-layout>
+        <v-layout row>
+            <input type="file" id="dish-files" name="files[]" multiple />
+        </v-layout>
+        <v-layout row justify-center>
+               <v-btn flat value="Add Card" @click="addDish">Add Dish</v-btn>
+               <v-btn flat value="Cancel" @click="resetAddDish">Cancel</v-btn>
+        </v-layout>
+        </v-container>
+    </v-card>
     </div>
 </div>
 </template>
 
 <script>
 import Firebase from 'firebase'
-import { dishesRef } from '../database'
+import { dishesRef, storageRef } from '../database'
 
 export default {
     data () {
         return {
             newDishName: '',
-            newDishLocation:'',
-            newDishUpVotes:[],
-            newDishDownVotes:[],
-            newDishComments:[]
+            newDishLocation: '',
+            newDishUpVotes: [],
+            newDishDownVotes: [],
+            newDishComments: [],
+            newDishAvailability: [],
+            newDishImages: []
         }
     },
-    methods:{
-        addDish(){
-            dishesRef.push({
-                dishName: this.newDishName,
-                location: this.newDishLocation,
-                upVotes: this.newDishUpVotes,
-                downVotes: this.newDishDownVotes,
-                numVotes: 0,
-                comments: this.newDishComments
-            
+    methods: {
+        getURLPromise (f) {
+            return storageRef.child('images/' + f.name).put(f).then(function(snapshot) {
+                console.log(snapshot.downloadURL)
+                return snapshot.downloadURL;  
             });
+        }, 
+        
+        addDish () {
+            var images = document.getElementById('dish-files')
+            if (images.files.length > 0) {
+                var file = images.files
+                var allURLs = []
+                for (var i = 0; i < file.length; i++) {
+                    allURLs.push(this.getURLPromise(file[i]));
+                }
+            }
+            
+            Promise.all(allURLs).then(function(results) {
+                dishesRef.push({
+                    dishName: this.newDishName,
+                    location: this.newDishLocation,
+                    upVotes: this.newDishUpVotes,
+                    downVotes: this.newDishDownVotes,
+                    numVotes: 0,
+                    comments: this.newDishComments,
+                    availability: this.newDishAvailability,
+                    images: results
+                });
+            })
+            
             this.resetAddDish();
         }, 
         
         resetAddDish(){
-            this.isAddingDish = false;
             this.newDishName = '';
             this.newDishLocation='';
             this.newDishVotes=[];
             this.newDishComments=[];
-            this.onClick(false);
+            this.newDishDaysOfTheWeek = [];
+            this.onClick();
         },
         
         
@@ -72,7 +113,7 @@ export default {
 
 <style>
 
-#list-title {
+#add-dish {
     color: darkgray;
 }
     

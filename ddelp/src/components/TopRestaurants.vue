@@ -1,9 +1,11 @@
 <template>
 <div>
     <h1 id="list-title">Top 5 Dishes</h1>
+    <v-layout>
+    <v-card>
     <v-list three-line>
-        <template v-for="(key, value, index) in dishes">
-            <v-list-tile avatar ripple :key="value" @click="updateDish(key)">
+        <template v-for="(key, index) in dishes">
+            <v-list-tile avatar ripple :key="index" @click="updateDish(key)">
                 <v-list-tile-content>
                     <v-list-tile-title>{{ key.dishName }}</v-list-tile-title>
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
@@ -14,7 +16,7 @@
                     <v-icon @click="vote(key, -1)">keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
             </v-list-tile>
-<!--            <v-divider v-if="index+1 < Object.keys(dishName).length"></v-divider>-->
+            <v-divider v-if="index+1 < dishes.length"></v-divider>
         </template>
     </v-list>
     </v-card>
@@ -44,43 +46,46 @@ export default {
     
     methods: {
         updateDish: function(value) {
-            // console.log(key['.key']);
             this.setDish(value)
         },
-        vote(dish, amount){
+        
+        vote(dish, amount) {
+            // stop propagation
+            if (!e) var e = window.event;
+            e.cancelBubble = true;
+            if (e.stopPropagation) e.stopPropagation();
+                
             dishesRef.child(dish['.key']).once('value', function(snapshot) {
                 var newNumVotes = snapshot.val().numVotes;
                 newNumVotes += amount;
+                
                 var d = new Date();
-                if(amount >0){ //upvoting
+                
+                if (amount > 0) { //upvoting
                     var newUpVotes = snapshot.val().upVotes;
-                    if(newUpVotes == null){
+                    if (newUpVotes == null) {
                         newUpVotes = [];
                     }
                     newUpVotes.push(d);
                     dishesRef.child(dish['.key']).update({
-                    numVotes : newNumVotes,
-                    upVotes: newUpVotes
-                    
-                });
+                        numVotes : newNumVotes,
+                        upVotes: newUpVotes
+                    });
                 }
-                if(amount <0){ //downvoting
+                
+                if (amount < 0) { //downvoting
                     var newDownVotes = snapshot.val().downVotes;
-                    if(newDownVotes == null){
+                    if (newDownVotes == null) {
                         newDownVotes = [];
                     }
                     newDownVotes.push(d);
                     dishesRef.child(dish['.key']).update({
-                    numVotes : newNumVotes,
-                    downVotes: newDownVotes
-                });
+                        numVotes : newNumVotes,
+                        downVotes: newDownVotes
+                    });
                 }
                 
             });
-     },
-        
-        printkey(key){
-            console.log(key['.key']);
         }
     }
 }

@@ -15,9 +15,10 @@
                 </authentication>
             </v-toolbar>
             <div id="main-page">
-                <top-restaurants :title="day" :setDish="viewDish" v-if="isAddingDish == false"></top-restaurants>
-                <top-restaurants v-if="isAddingDish == false" :onClick="exitAddForm"></top-restaurants>
-                <add-dish v-if="isAddingDish == true" :onClick="exitAddForm"></add-dish>
+                <top-restaurants :title="day" :setDish="viewDish" v-if="displayHome"></top-restaurants>
+                <top-restaurants v-if="displayHome" :setDish="viewDish"></top-restaurants>
+                <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
+                <dish-info v-if="dishDict" :dish="dishDict" :user="user" :onClick="exitDishInfo"></dish-info>
             </div>
         </v-content>
     </v-app>
@@ -33,16 +34,23 @@ import AddDish from './components/AddDish'
 import DishInfo from './components/DishInfo'
     
 export default {
-  name: 'app',
-  data () {
-    return {
-        // useful data about the current user
-        user: null,
-        day: 'Monday',
-        dishDict: null,
-        isAddingDish: false
-    }
-  },
+    name: 'app',
+    data () {
+        return {
+            // useful data about the current user
+            user: null,
+            day: 'Monday',
+            dishDict: null,     // is not null if someone clicks on a dish card
+            isAddingDish: false     // is true if someone clicks on add dish
+        }
+    },
+    
+    computed: {
+        displayHome: function () {
+            return (!this.dishDict) && (!this.isAddingDish)
+        }
+    },
+    
     components: {
         Authentication,
         Search,
@@ -50,6 +58,7 @@ export default {
         DishInfo,
         TopRestaurants,
     },
+    
     methods: {
         // allow child component to change user value
         getUser () {
@@ -65,6 +74,10 @@ export default {
         
         exitAddForm () {
             this.isAddingDish = false
+        },
+        
+        exitDishInfo () {
+            this.dishDict = null
         }
     }
 }
