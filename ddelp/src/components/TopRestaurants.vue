@@ -69,14 +69,10 @@ export default {
         updateDish: function(value) {
             this.setDish(value)
         },
-        vote(dish, amount) {
-            // stop propagation
-            if (!e) var e = window.event;
-            e.cancelBubble = true;
-            if (e.stopPropagation) e.stopPropagation();
-            
+        vote(dish, amount) {            
             this.onVote(dish, amount)
         },
+        
         filter(criteria, cat){
             if(cat == 'date'){
                 if(criteria == 'today'){

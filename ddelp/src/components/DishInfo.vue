@@ -57,7 +57,18 @@ export default {
         addComment (dish, user) {
             console.log(this.commentText)
             dishesRef.child(dish['.key']).once('value', function(snapshot) {
-                console.log(snapshot.val().comments)
+                if (this.commentText) {
+                    var comments = snapshot.val().comments
+                    if (comments == null) {
+                        var comments = []
+                    }
+                    var d = new Date()
+                    comments.push({
+                        user: user,
+                        text: this.commentText,
+                        date: d
+                    })
+                }
             })
             this.commentText = ''
         },
