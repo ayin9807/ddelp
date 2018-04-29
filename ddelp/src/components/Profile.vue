@@ -2,7 +2,7 @@
 <div>
     <v-card width="600px">
         <v-container fluid>
-            <v-card-media></v-card-media>
+            <v-card-media v-if="getAvatar(user)" :src="getAvatar(user)" height="300px"></v-card-media>
             <v-layout row justify-center align-center>
                 <v-card-title>
                     <h1 style="color: darkgray;">{{ user.name }}</h1>
@@ -110,6 +110,16 @@ import { dishesRef, storageRef, usersRef } from '../database'
                     });
                     document.getElementById('avatar').value = ''
                 } 
+            },
+            
+            getAvatar (user) {
+                for (var i=0; i < this.users.length; i++) {
+                    if (user.uid == this.users[i]['.key']) {
+                        console.log(this.users[i].avatar)
+                        return this.users[i].avatar
+                    }
+                }
+                return false
             }
         }
     }
