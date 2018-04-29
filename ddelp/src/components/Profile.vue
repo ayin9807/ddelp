@@ -48,11 +48,11 @@ import { dishesRef, storageRef, usersRef } from '../database'
                     var file = images.files[0]
                     storageRef.child('images/' + file.name).put(file).then(function(snapshot) {
                         usersRef.update({
-                            name: this.user.name,
+                            name: this.user.id,
                             URL: snapshot.downloadURL
                         });
                     });
-                        document.getElementById('avatar').value = ''
+                    document.getElementById('avatar').value = ''
                 }
             }
         }

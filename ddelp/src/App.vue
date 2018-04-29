@@ -16,8 +16,8 @@
                 </authentication>
             </v-toolbar>
             <div id="main-page">
-                <top-restaurants :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></top-restaurants>
-                <recent-dishes :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
+                <top-restaurants :onVote="vote" :setDish="viewDish" v-if="displayHome"></top-restaurants>
+                <recent-dishes :onVote="vote" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
                 <dish-info v-if="dishDict" :getDish="getDish" :user="user" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
                 <profile v-if="viewingProfile" :user="user" :onClick="exitProfile"></profile>
@@ -49,26 +49,19 @@ export default {
             dishDict: null,     // is not null if someone clicks on a dish card
             isAddingDish: false,     // is true if someone clicks on add dish
             viewingProfile: false,
-            searchWord: null
+            searchWord: null,
+            admin: false
         }
     },
     
     computed: {
         displayHome: function () {
             return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile) && (!this.searchWord)
-        },
-        
-        admin: function () {
-            var isAdmin = false
-            adminRef.once('value', function(snapshot) {
-                if (snapshot.val().indexOf(this.user.name) > -1) {
-                    console.log(isAdmin)
-                    isAdmin = true;
-                }
-            })
-            console.log(isAdmin)
-            return isAdmin
         }
+    },
+    
+    firebase: {
+        admins: adminRef    
     },
     
     components: {
@@ -88,6 +81,7 @@ export default {
         },
         setUser (user) {
             this.user = user
+            if (this.user) this.checkAdmin()
         },
         viewDish (value) {
             this.dishDict = value
@@ -155,6 +149,18 @@ export default {
         
         searchingDishes () {
             console.log(this.searchWord)
+        },
+        
+        checkAdmin () {
+            for (var i=0; i < this.admins.length; i++) {
+                console.log(this.admins[i]['.value'])
+                console.log(this.user.name)
+                if (this.admins[i]['.value'] == this.user.name) {
+                    this.admin = true
+                }
+            }
+            
+            console.log(this.admin)
         }
     }
 }

@@ -45,7 +45,6 @@ export default {
         dishesAdded: dishesAddedRef
     },
     props: [
-        'title',
         'setDish',
         'onVote'
     ], 
