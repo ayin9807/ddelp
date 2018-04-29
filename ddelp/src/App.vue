@@ -5,7 +5,7 @@
             <v-toolbar color="teal lighten-3">
                 <h1>DDelp</h1>
                 <v-spacer></v-spacer>
-                <search></search>
+                <v-text-field prepend-icon="search" placeholder="search for existing dishes..." v-model="searchWord" @keyup.enter="searchingDishes"></v-text-field>
                 <v-spacer></v-spacer>
                 <v-btn @click="isAddingDish = true"><a><span class="glyphicon"></span>Add Dish</a></v-btn>
                 <v-spacer></v-spacer>
@@ -21,6 +21,7 @@
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
                 <dish-info v-if="dishDict" :getDish="getDish" :user="user" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
                 <profile v-if="viewingProfile" :user="user" :onClick="exitProfile"></profile>
+                <search v-if="searchWord" :keyword="searchWord"></search>
             </div>
         </v-content>
     </v-app>
@@ -45,16 +46,16 @@ export default {
         return {
             // useful data about the current user
             user: null,
-            day: 'Monday',
             dishDict: null,     // is not null if someone clicks on a dish card
             isAddingDish: false,     // is true if someone clicks on add dish
-            viewingProfile: false
+            viewingProfile: false,
+            searchWord: null
         }
     },
     
     computed: {
         displayHome: function () {
-            return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile)
+            return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile) && (!this.searchWord)
         },
         
         admin: function () {
@@ -150,6 +151,10 @@ export default {
         deleteDish () {
             dishesRef.child(this.dishDict['.key']).remove()
             this.exitDishInfo()
+        },
+        
+        searchingDishes () {
+            console.log(this.searchWord)
         }
     }
 }

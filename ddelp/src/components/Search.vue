@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-text-field prepend-icon="search" placeholder="search for existing dishes..."></v-text-field>
+    {{keyword}}
 </div>
 </template>
 
@@ -13,7 +13,7 @@
         },
         
         props: [
-            
+            'keyword'
         ],
         
         methods: {
