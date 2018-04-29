@@ -26,7 +26,7 @@
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <v-btn flat"?" @click.stop="vote(key, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
+                    <v-btn flat @click.stop="vote(key, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
                     <v-list-tile-action-text>{{ key.numVotes }}</v-list-tile-action-text>
                     <v-btn flat @click.stop="vote(key, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
                 </v-list-tile-action>

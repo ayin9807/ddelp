@@ -23,6 +23,15 @@
             <v-checkbox label="Sun" v-model="newDishAvailability" value="Sun"></v-checkbox>
         </v-layout>
         <v-layout row>
+            <h3 style="color:darkgray;">Is this dish...</h3>
+        </v-layout>
+        <v-layout row justify-center>
+            <v-checkbox label="Vegetarian" v-model="newLabels" value="Vegetarian"></v-checkbox>
+            <v-checkbox label="Vegan" v-model="newLabels" value="Vegan"></v-checkbox>
+            <v-checkbox label="Gluten-Free" v-model="newLabels" value="Gluten-Free"></v-checkbox>
+            <v-checkbox label="Pescetarian" v-model="newLabels" value="Pescetarian"></v-checkbox>
+        </v-layout>
+        <v-layout row>
             <h3 style="color:darkgray;">Have pictures?</h3>
         </v-layout>
         <v-layout row>
@@ -51,7 +60,8 @@ export default {
             newDishDownVotes: [],
             newDishComments: [],
             newDishAvailability: [],
-            newShow: true
+            newShow: true,
+            newLabels: []
         }
     },
     methods: {
@@ -69,6 +79,7 @@ export default {
             var downvotes = this.newDishDownVotes;
             var comments = this.newDishComments;
             var availability = this.newDishAvailability;
+            var labels = this.newLabels;
             var show = this.newShow;
             
             if (images.files.length > 0) {
@@ -88,6 +99,7 @@ export default {
                         comments: comments,
                         availability: availability,
                         images: results,
+                        labels: labels,
                         visible: show
                     });
                 })
@@ -100,6 +112,7 @@ export default {
                     numVotes: 0,
                     comments: comments,
                     availability: availability,
+                    labels: labels,
                     visible: show
                 });
             }
@@ -115,6 +128,7 @@ export default {
             this.newDishDaysOfTheWeek = [];
             this.onClick();
             this.newDateAdded = '';
+            this.newLabels = [];
         },
         
         

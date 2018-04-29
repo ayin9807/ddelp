@@ -30,8 +30,14 @@
                 <v-btn flat @click="vote(dish, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
             </v-card-text>
         </v-layout>
+        <v-layout>
+            <h3>This dish is...</h3>
+            <ul>
+                <li v-for="l in dish.labels">{{ l }}</li>
+            </ul>
+        </v-layout>
         <v-layout row justify-left>
-            <h3>Comments from your fellow Duke students:</h3>
+            <h3 style="margin-top: 14px;">Comments from your fellow Duke students:</h3>
         </v-layout>
         <v-card color="blue-grey lighten-4" v-if="dish.comments">
             <v-list two-line>
