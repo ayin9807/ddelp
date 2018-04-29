@@ -16,12 +16,13 @@ import Firebase from 'firebase'
 import FirebaseUI from 'firebaseui'
 // single instance of popup credentials UI
 var authUI = new FirebaseUI.auth.AuthUI(Firebase.auth())
-
+import { usersRef } from '../database' 
 export default {
     name: 'Authentication',
     data () {
         return {
-            isShown: false
+            isShown: false,
+            users: usersRef
         }
     },
     // methods provided to change value of user in parent component
@@ -54,6 +55,8 @@ export default {
                     signInSuccessWithAuthResult: authResult => {
                         // save interesting parts of user data
                         this.signIn(authResult.user)
+                        //make duplicate in fb
+                        this.storeInfo(authResult.user)
                         // hide styling again
                         this.isShown = false
                         // do not redirect
@@ -66,13 +69,28 @@ export default {
                 }
             })
         },
-        signIn (user) {
+        storeInfo(user){
+           for(var i = 0; i < this.users.length; i++){
+                if(users[i].uid == user.uid){
+                    console.log('hi');
+                    return;
+                }
+            }
+            usersRef.child(user.uid).set({
+                name: user.displayName,
+                email: user.email,
+                isAnonymous: user.isAnonymous
+            });
+            console.log('hey'); 
+        }
+        ,signIn (user) {
             this.setUser({
                 name: user.displayName,
                 email: user.email,
                 uid: user.uid,
                 isAnonymous: user.isAnonymous
             })
+            
         },
         signOut () {
             Firebase.auth().signOut()
