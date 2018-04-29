@@ -36,6 +36,12 @@
                 <li v-for="l in dish.labels">{{ l }}</li>
             </ul>
         </v-layout>
+        <v-layout v-if="dish.availability">
+            <h3>It's available on... </h3>
+            <ul>
+                <li v-for="day in dish.availability">{{ day }}</li>
+            </ul>
+        </v-layout>
         <v-layout row justify-left>
             <h3 style="margin-top: 14px;">Comments from your fellow Duke students:</h3>
         </v-layout>

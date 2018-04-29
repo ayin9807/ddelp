@@ -22,7 +22,7 @@
             </v-layout>
                 <div v-show="!editPrefs">
                 <v-layout row >
-                <div v-for="l in user.labels">
+                <div v-for="l in getLabels(user)">
                     <p class="space">{{l}}</p>
                 </div>
                     
@@ -86,14 +86,6 @@ import { dishesRef, storageRef, usersRef } from '../database'
                     this.newLabels
                 );
                 
-                this.setUser({
-                    name: this.user.name,
-                    email: this.user.email,
-                    uid: this.user.uid,
-                    isAnonymous: this.user.isAnonymous,
-                    labels: this.newLabels
-                })
-                
                 this.exitProfile();
             },
             
@@ -119,6 +111,16 @@ import { dishesRef, storageRef, usersRef } from '../database'
                     }
                 }
                 return false
+            },
+            
+            getLabels (user) {
+                for (var i=0; i < this.users.length; i++) {
+                    if (user.uid == this.users[i]['.key']) {
+                        console.log(this.users[i].prefs)
+                        return this.users[i].prefs
+                    }
+                }
+                return ['none']
             }
         }
     }
