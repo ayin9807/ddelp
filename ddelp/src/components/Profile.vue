@@ -55,7 +55,8 @@ import { dishesRef, storageRef, usersRef } from '../database'
         data () {
             return {
                 newLabels: [],
-                editPrefs: false
+                editPrefs: false,
+                users: usersRef
             }
         },
         

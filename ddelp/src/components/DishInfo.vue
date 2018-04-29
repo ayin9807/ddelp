@@ -25,9 +25,9 @@
         <v-layout row justify-center align-center>
             <v-card-text><h3>Location: {{ dish.location }}</h3></v-card-text>
             <v-card-text>
-                <v-btn flat @click="vote(dish, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
+                <v-btn icon flat @click="vote(dish, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
                 <h3>{{ dish.numVotes }}</h3>
-                <v-btn flat @click="vote(dish, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
+                <v-btn icon flat @click="vote(dish, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
             </v-card-text>
         </v-layout>
         <v-layout v-if="dish.labels">
