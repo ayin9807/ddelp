@@ -30,7 +30,7 @@
                 <v-btn flat @click="vote(dish, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
             </v-card-text>
         </v-layout>
-        <v-layout>
+        <v-layout v-if="dish.labels">
             <h3>This dish is...</h3>
             <ul>
                 <li v-for="l in dish.labels">{{ l }}</li>
@@ -41,7 +41,7 @@
         </v-layout>
         <v-card color="blue-grey lighten-4" v-if="dish.comments">
             <v-list two-line>
-                <template v-for="c in dish.comments">
+                <template v-for="(c, index) in dish.comments">
                     <v-list-tile avatar>
                         <v-list-tile-avatar>
                             <img v-if="c.avatar">
@@ -51,6 +51,9 @@
                             <v-list-tile-sub-title>{{ c.user.name }} &mdash; {{ c.text }}</v-list-tile-sub-title> 
                             <v-list-tile-sub-title>{{ c.date }} </v-list-tile-sub-title>
                         </v-list-tile-content>
+                        <v-list-tile-action v-if="admin">
+                            <v-btn flat fab @click="deleteComment(index)"><v-icon>clear</v-icon></v-btn>
+                        </v-list-tile-action>
                     </v-list-tile>
                 </template>
             </v-list>
@@ -62,6 +65,7 @@
     </v-card>
 </div>
 <v-btn flat color="orange" @click="exitDishInfo">Exit</v-btn>
+<v-btn flat color="red" v-if="admin" @click="deleteDish">Delete</v-btn>
 </div>    
 </template>
 
@@ -80,7 +84,9 @@ export default {
         'getDish',
         'onClick',
         'user',
-        'onVote'
+        'onVote',
+        'admin',
+        'delete'
     ],
     
     computed: {
@@ -125,6 +131,14 @@ export default {
         
         vote (dish, amount) {
             this.onVote(dish, amount)
+        },
+        
+        deleteComment(index) {
+            console.log(index)
+        },
+        
+        deleteDish () {
+            this.delete()
         }
     }
 }

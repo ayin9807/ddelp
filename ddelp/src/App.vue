@@ -19,7 +19,7 @@
                 <top-restaurants :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></top-restaurants>
                 <recent-dishes :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
-                <dish-info v-if="dishDict" :getDish="getDish" :user="user" :onClick="exitDishInfo" :onVote="vote"></dish-info>
+                <dish-info v-if="dishDict" :getDish="getDish" :user="user" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
                 <profile v-if="viewingProfile" :user="user" :onClick="exitProfile"></profile>
             </div>
         </v-content>
@@ -29,7 +29,7 @@
 
 <script>
 import Firebase from 'firebase'
-import { dishesRef } from './database'
+import { dishesRef, adminRef } from './database'
 import { db } from './database'
 import Authentication from './components/Authentication'
 import Search from './components/Search'
@@ -55,6 +55,18 @@ export default {
     computed: {
         displayHome: function () {
             return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile)
+        },
+        
+        admin: function () {
+            var isAdmin = false
+            adminRef.once('value', function(snapshot) {
+                if (snapshot.val().indexOf(this.user.name) > -1) {
+                    console.log(isAdmin)
+                    isAdmin = true;
+                }
+            })
+            console.log(isAdmin)
+            return isAdmin
         }
     },
     
@@ -133,6 +145,11 @@ export default {
                 }
                 
             });
+        },
+        
+        deleteDish () {
+            dishesRef.child(this.dishDict['.key']).remove()
+            this.exitDishInfo()
         }
     }
 }
