@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "@mdi/font": "^2.3.54",
     "firebase": "^4.13.1",
     "firebaseui": "^2.7.0",
     "google-fonts": "^1.0.0",

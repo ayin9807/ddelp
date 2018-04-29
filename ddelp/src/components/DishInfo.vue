@@ -64,8 +64,8 @@
         </v-container>
     </v-card>
 </div>
-<v-btn flat color="orange" @click="exitDishInfo">Exit</v-btn>
-<v-btn flat color="red" v-if="admin" @click="deleteDish">Delete</v-btn>
+<v-btn  @click="exitDishInfo">Exit</v-btn>
+<v-btn v-if="admin" @click="deleteDish">Delete</v-btn>
 </div>    
 </template>
 

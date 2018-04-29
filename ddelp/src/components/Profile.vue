@@ -18,14 +18,27 @@
             </v-layout>
             <div class="margin">
             <v-layout row>
-            <h3 style="color:darkgray;">Dietary Preferences</h3>
+            <h3 style="color:darkgray;">Your Dietary Preferences</h3> 
             </v-layout>
-            <v-layout row justify-center>
+                <div v-show="!editPrefs">
+                <v-layout row >
+                <div v-for="l in user.labels">
+                    <p class="space">{{l}}</p>
+                </div>
+                    
+                    </v-layout>
+                <v-layout @click="editPreferences()" row><v-btn small>Edit</v-btn></v-layout>
+                    </div>
+                <div v-show="editPrefs">
+            <v-layout row justify-center >
                 <v-checkbox label="Vegetarian" v-model="newLabels" value="Vegetarian"></v-checkbox>
                 <v-checkbox label="Vegan" v-model="newLabels" value="Vegan"></v-checkbox>
                 <v-checkbox label="Gluten-Free" v-model="newLabels" value="Gluten-Free"></v-checkbox>
                 <v-checkbox label="Pescetarian" v-model="newLabels" value="Pescetarian"></v-checkbox>
+                
             </v-layout>
+                <v-layout @click="cancelPreferences()" row><v-btn small>Cancel</v-btn></v-layout>
+            </div>
             </div>
         </v-container>
     </v-card>
@@ -34,13 +47,15 @@
 </div>
 </template>
 
+
 <script>
 import Firebase from 'firebase'
 import { dishesRef, storageRef, usersRef } from '../database'   
     export default {
         data () {
             return {
-                newLabels: []
+                newLabels: [],
+                editPrefs: false
             }
         },
         
@@ -58,8 +73,14 @@ import { dishesRef, storageRef, usersRef } from '../database'
             exitProfile () {
                 this.onClick()
             },
+            editPreferences(){
+                this.editPrefs = true;
+            }
+            ,cancelPreferences(){
+                this.editPrefs=false;
+            }
             
-            save(user){
+            ,save(user){
                 this.uploadAvatar();
                 usersRef.child(user.uid).child('prefs').set(
                     this.newLabels
@@ -94,6 +115,9 @@ import { dishesRef, storageRef, usersRef } from '../database'
 </script>
 
 <style>
+    .space{
+        margin-left:10px
+    }
     .margin{
         margin: 10px
     }
