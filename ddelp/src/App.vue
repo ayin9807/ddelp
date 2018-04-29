@@ -30,7 +30,7 @@
 
 <script>
 import Firebase from 'firebase'
-import { dishesRef, adminRef } from './database'
+import { dishesRef, usersRef } from './database'
 import { db } from './database'
 import Authentication from './components/Authentication'
 import Search from './components/Search'
@@ -49,19 +49,28 @@ export default {
             dishDict: null,     // is not null if someone clicks on a dish card
             isAddingDish: false,     // is true if someone clicks on add dish
             viewingProfile: false,
-            searchWord: null,
-            admin: false
+            searchWord: null
         }
     },
     
     computed: {
         displayHome: function () {
             return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile) && (!this.searchWord)
+        },
+        admin: function () {
+            for (var i=0; i < this.users.length; i++) {
+                if (this.user.uid == this.users[i]['.key']) {
+                    return this.users[i].isAdmin
+                }
+            }
+            // this.admin = this.users.child(this.user.uid).isAdmin
+            return false
         }
     },
     
     firebase: {
-        admins: adminRef    
+        users: usersRef,
+        dishes: dishesRef
     },
     
     components: {
@@ -81,7 +90,6 @@ export default {
         },
         setUser (user) {
             this.user = user
-            if (this.user) this.checkAdmin()
         },
         viewDish (value) {
             this.dishDict = value
@@ -92,6 +100,11 @@ export default {
         },
         
         getDish () {
+            for (var i=0; i < this.dishes.length; i++) {
+                if (this.dishDict['.key'] == this.dishes[i]['.key']) {
+                    return this.dishes[i]
+                }
+            }
             return this.dishDict  
         },
         
@@ -149,18 +162,6 @@ export default {
         
         searchingDishes () {
             console.log(this.searchWord)
-        },
-        
-        checkAdmin () {
-            for (var i=0; i < this.admins.length; i++) {
-                console.log(this.admins[i]['.value'])
-                console.log(this.user.name)
-                if (this.admins[i]['.value'] == this.user.name) {
-                    this.admin = true
-                }
-            }
-            
-            console.log(this.admin)
         }
     }
 }

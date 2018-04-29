@@ -105,7 +105,6 @@ export default {
         },
 
         addComment (dish, user) {
-            console.log(this.commentText)
             var comment = this.commentText
             dishesRef.child(dish['.key']).once('value', function(snapshot) {
                 if (comment != '' || comment != null) {
@@ -134,7 +133,10 @@ export default {
         },
         
         deleteComment(index) {
-            console.log(index)
+            this.dish.comments.splice(index, 1)
+            dishesRef.child(this.dish['.key']).update({
+                comments: this.dish.comments
+            })
         },
         
         deleteDish () {

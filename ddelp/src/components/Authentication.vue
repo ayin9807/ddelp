@@ -69,10 +69,10 @@ export default {
                 }
             })
         },
+        
         storeInfo(user){
            for(var i = 0; i < this.users.length; i++){
                 if(users[i].uid == user.uid){
-                    console.log('hi');
                     return;
                 }
             }
@@ -81,9 +81,9 @@ export default {
                 email: user.email,
                 isAnonymous: user.isAnonymous
             });
-            console.log('hey'); 
-        }
-        ,signIn (user) {
+        },
+        
+        signIn (user) {
             this.setUser({
                 name: user.displayName,
                 email: user.email,
@@ -106,6 +106,7 @@ export default {
         Firebase.auth().onAuthStateChanged(authState => {
             if (authState) {
                 this.signIn(authState)
+                // this.checkAdmin()
             }
         })
     }
