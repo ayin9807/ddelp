@@ -11,14 +11,16 @@
                 <v-spacer></v-spacer>
                 <authentication class="z nav navbar-nav navbar-right"
                     :getUser="getUser"
-                    :setUser="setUser">
+                    :setUser="setUser"
+                    :viewProfile="viewProfile">
                 </authentication>
             </v-toolbar>
             <div id="main-page">
                 <top-restaurants :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></top-restaurants>
                 <recent-dishes :onVote="vote" :title="day" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
-                <dish-info v-if="dishDict" :dish="dishDict" :user="user" :onClick="exitDishInfo" :onVote="vote"></dish-info>
+                <dish-info v-if="dishDict" :getDish="getDish" :user="user" :onClick="exitDishInfo" :onVote="vote"></dish-info>
+                <profile v-if="viewingProfile" :user="user" :onClick="exitProfile"></profile>
             </div>
         </v-content>
     </v-app>
@@ -35,6 +37,7 @@ import TopRestaurants from './components/TopRestaurants'
 import RecentDishes from './components/MostRecent'
 import AddDish from './components/AddDish'
 import DishInfo from './components/DishInfo'
+import Profile from './components/Profile'
     
 export default {
     name: 'app',
@@ -44,13 +47,14 @@ export default {
             user: null,
             day: 'Monday',
             dishDict: null,     // is not null if someone clicks on a dish card
-            isAddingDish: false     // is true if someone clicks on add dish
+            isAddingDish: false,     // is true if someone clicks on add dish
+            viewingProfile: false
         }
     },
     
     computed: {
         displayHome: function () {
-            return (!this.dishDict) && (!this.isAddingDish)
+            return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile)
         }
     },
     
@@ -60,7 +64,8 @@ export default {
         AddDish,
         DishInfo,
         TopRestaurants,
-        RecentDishes
+        RecentDishes,
+        Profile
     },
     
     methods: {
@@ -79,8 +84,20 @@ export default {
             this.isAddingDish = false
         },
         
+        getDish () {
+            return this.dishDict  
+        },
+        
         exitDishInfo () {
             this.dishDict = null
+        },
+        
+        viewProfile () {
+            this.viewingProfile = true  
+        },
+        
+        exitProfile() {
+            this.viewingProfile = false
         },
         
         vote (dish, amount) {
@@ -145,9 +162,10 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     margin-top: 2%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 ul {

@@ -17,7 +17,7 @@
                     <v-btn flat @click.stop="vote(key, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
                 </v-list-tile-action>
             </v-list-tile>
-            <v-divider v-if="index+1 < dishes.length"></v-divider>
+            <v-divider v-if="index+1 < dishesAdded.length"></v-divider>
                 </div>
         </template>
     </v-list>
@@ -39,8 +39,8 @@ export default {
             toggle_one: 'all',
             sorted: false
         }
-    }
-    ,firebase: {
+    },
+    firebase: {
         dishes: dishesRef,
         dishesAdded: dishesAddedRef
     },

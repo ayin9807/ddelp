@@ -1,6 +1,7 @@
 <template>
 <div >
-     <v-btn-toggle v-model="toggle_one">
+     <h1 class="list-title">Top Dishes</h1>
+     <v-btn-toggle v-model="toggle_one" id="toggle">
               <v-btn @click="filter('today', 'date')" flat  value="today">
                 Today
               </v-btn>
@@ -13,8 +14,7 @@
               <v-btn  @click="filter('all', 'date')" value="all">
                 All Time
               </v-btn>
-            </v-btn-toggle>
-    <h1 class="list-title">Top Dishes</h1>
+    </v-btn-toggle>
     <v-layout>
     <v-card>
     <v-list three-line>
@@ -26,7 +26,7 @@
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <v-btn flat @click.stop="vote(key, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
+                    <v-btn flat"?" @click.stop="vote(key, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
                     <v-list-tile-action-text>{{ key.numVotes }}</v-list-tile-action-text>
                     <v-btn flat @click.stop="vote(key, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
                 </v-list-tile-action>
@@ -160,9 +160,9 @@ export default {
 </script>
 
 <style >
-    v-list-tile{
-        margin-bottom: 10px
-    }
+v-list-tile{
+    margin-bottom: 10px
+}
 .list-title {
     color: darkgray;
 }

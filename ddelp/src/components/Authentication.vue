@@ -2,7 +2,7 @@
 <div >
     <ul>
         <li v-if="user" style="color: white; font-size: 18px; font-weight: bold;">Hi, {{user.name}}!</li>
-        <v-btn v-if="user"><a><span class="glyphicon glyphicon-log-out"></span>Profile</a></v-btn>
+        <v-btn v-if="user" @click="showProfile"><a><span class="glyphicon glyphicon-log-out"></span>Profile</a></v-btn>
         <v-btn v-if="user" @click="signOut"><a><span class="glyphicon glyphicon-log-out"></span>Logout</a></v-btn>
         <v-btn v-else @click="signInPopup"><a><span class="glyphicon glyphicon-user"></span>Sign In</a></v-btn>
         <!-- sign in "popup" container does not popup for email authentication, so provide so styling help -->
@@ -28,6 +28,7 @@ export default {
     props: [
         'getUser',
         'setUser',
+        'viewProfile'
     ],
     // let HTML template access user as if it were a variable in this component
     computed: {
@@ -76,6 +77,10 @@ export default {
         signOut () {
             Firebase.auth().signOut()
             this.setUser(null)
+        },
+        
+        showProfile () {
+            this.viewProfile()
         }
     },
     mounted () {

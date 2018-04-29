@@ -1,25 +1,39 @@
 <template>
 <div>
-    <v-card color="blue-grey lighten-3" class="white--text">
+<div id="dish-info">
+    <v-card color="blue-grey lighten-3" class="white--text" v-if="dish.images">
         <v-container fluid>
-        <v-card-media v-if="dish.images" :src="dish.images[0]" height="200px"></v-card-media>
+        <v-card-media>
+            <v-carousel height="300px">
+                <v-carousel-item v-for="i in dish.images" :src="i"></v-carousel-item>
+            </v-carousel>
+        </v-card-media>
         <v-layout row justify-center>
             <v-card-title>
-                <h1>{{ currentDish.dishName }}</h1>
+                <h1>{{ dish.dishName }}</h1>
             </v-card-title>
         </v-layout>
+        </v-container>
+    </v-card>
+    <v-card color="blue-grey lighten-3" class="white--text">
+        <v-container fluid>
+        <v-layout row justify-center v-if="!dish.images">
+            <v-card-title>
+                <h1>{{ dish.dishName }}</h1>
+            </v-card-title>
+        </v-layout>    
         <v-layout row justify-center align-center>
-            <v-card-text><h3>Location: {{ currentDish.location }}</h3></v-card-text>
+            <v-card-text><h3>Location: {{ dish.location }}</h3></v-card-text>
             <v-card-text>
                 <v-btn flat @click="vote(dish, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
-                <h3>{{ currentDish.numVotes }}</h3>
+                <h3>{{ dish.numVotes }}</h3>
                 <v-btn flat @click="vote(dish, -1)"><v-icon>keyboard_arrow_down</v-icon></v-btn>
             </v-card-text>
         </v-layout>
         <v-layout row justify-left>
             <h3>Comments from your fellow Duke students:</h3>
         </v-layout>
-        <v-card color="blue-grey lighten-4" v-if="currentDish.comments">
+        <v-card color="blue-grey lighten-4" v-if="dish.comments">
             <v-list two-line>
                 <template v-for="c in dish.comments">
                     <v-list-tile avatar>
@@ -40,7 +54,8 @@
         </v-layout>
         </v-container>
     </v-card>
-    <v-btn flat @click="exitDishInfo">Exit</v-btn>
+</div>
+<v-btn flat color="orange" @click="exitDishInfo">Exit</v-btn>
 </div>    
 </template>
 
@@ -56,20 +71,15 @@ export default {
     },
 
     props: [
-        'dish',
+        'getDish',
         'onClick',
         'user',
         'onVote'
     ],
     
     computed: {
-        currentDish: function () {
-            var dishDict = null
-            dishesRef.child(this.dish['.key']).once('value', function(snapshot) {
-                dishDict = snapshot.val()
-            })
-            console.log(dishDict)
-            return dishDict
+        dish: function () {
+            return this.getDish()
         }
     },
     
@@ -115,5 +125,8 @@ export default {
 </script>
 
 <style>
-    
+    #dish-info {
+        display: flex;
+        flex-direction: row;
+    }
 </style>
