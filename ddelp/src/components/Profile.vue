@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-card width="400px">
+    <v-card width="600px">
         <v-container fluid>
             <v-card-media></v-card-media>
             <v-layout row justify-center align-center>
@@ -19,12 +19,14 @@
             <div class="margin">
             <v-layout row>
             <h3 style="color:darkgray;">Dietary Preferences</h3>
-        </v-layout>
-            <v-checkbox label="Vegetarian" v-model="newLabels" value="Vegetarian"></v-checkbox>
-            <v-checkbox label="Vegan" v-model="newLabels" value="Vegan"></v-checkbox>
-            <v-checkbox label="Gluten-Free" v-model="newLabels" value="Gluten-Free"></v-checkbox>
-            <v-checkbox label="Pescetarian" v-model="newLabels" value="Pescetarian"></v-checkbox>
-        </div>
+            </v-layout>
+            <v-layout row justify-center>
+                <v-checkbox label="Vegetarian" v-model="newLabels" value="Vegetarian"></v-checkbox>
+                <v-checkbox label="Vegan" v-model="newLabels" value="Vegan"></v-checkbox>
+                <v-checkbox label="Gluten-Free" v-model="newLabels" value="Gluten-Free"></v-checkbox>
+                <v-checkbox label="Pescetarian" v-model="newLabels" value="Pescetarian"></v-checkbox>
+            </v-layout>
+            </div>
         </v-container>
     </v-card>
     <v-btn @click="save(user)">Save</v-btn>
@@ -44,29 +46,51 @@ import { dishesRef, storageRef, usersRef } from '../database'
         
         props: [
             'user',
-            'onClick'
+            'onClick',
+            'setUser'
         ],
+        
+        firebase: {
+            users: usersRef  
+        },
         
         methods: {
             exitProfile () {
                 this.onClick()
             },
+            
             save(user){
                 this.uploadAvatar();
                 usersRef.child(user.uid).child('prefs').set(
                     this.newLabels
                 );
+                
+                var url = null;
+                for (var i=0; i < this.users.length; i++) {
+                    if (user.uid == this.users[i]['.key']) {
+                        if (this.users[i].avatar) url = this.users[i].avatar
+                    }
+                }
+                
+                this.setUser({
+                    name: this.user.name,
+                    email: this.user.email,
+                    uid: this.user.uid,
+                    isAnonymous: this.user.isAnonymous,
+                    labels: this.newLabels
+                })
+                
                 this.exitProfile();
-            }
+            },
             
-            ,uploadAvatar () {
+            uploadAvatar () {
                 var images = document.getElementById('avatar')
                 if (images.files.length > 0) {
                     var file = images.files[0]
+                    var userID = this.user.uid
                     storageRef.child('images/' + file.name).put(file).then(function(snapshot) {
-                        usersRef.update({
-                            name: this.user.id,
-                            URL: snapshot.downloadURL
+                        usersRef.child(userID).update({
+                            avatar: snapshot.downloadURL
                         });
                     });
                     document.getElementById('avatar').value = ''

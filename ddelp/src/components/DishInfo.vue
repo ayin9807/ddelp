@@ -44,7 +44,7 @@
                 <template v-for="(c, index) in dish.comments">
                     <v-list-tile avatar>
                         <v-list-tile-avatar>
-                            <img v-if="c.avatar">
+                            <img v-if="c.user.avatar" :src="c.user.avatar">
                             <img v-else src="https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png?w=1280">
                         </v-list-tile-avatar>
                         <v-list-tile-content>
@@ -83,7 +83,7 @@ export default {
     props: [
         'getDish',
         'onClick',
-        'user',
+        'getUser',
         'onVote',
         'admin',
         'delete'
@@ -92,6 +92,10 @@ export default {
     computed: {
         dish: function () {
             return this.getDish()
+        },
+        
+        user: function() {
+            return this.getUser()
         }
     },
     
@@ -114,6 +118,7 @@ export default {
                     }
                     var d = new Date()
                     var date = (d.getMonth() + 1) + '/' + d.getDate()
+                    console.log(user)
                     newComments.push({
                         user: user,
                         text: comment,

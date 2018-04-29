@@ -19,8 +19,8 @@
                 <top-restaurants :onVote="vote" :setDish="viewDish" v-if="displayHome"></top-restaurants>
                 <recent-dishes :onVote="vote" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
-                <dish-info v-if="dishDict" :getDish="getDish" :user="user" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
-                <profile v-if="viewingProfile" :user="user" :onClick="exitProfile"></profile>
+                <dish-info v-if="dishDict" :getDish="getDish" :getUser="getUser" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
+                <profile v-if="viewingProfile" :user="user" :onClick="exitProfile" :setUser="setUser"></profile>
                 <search v-if="searchWord" :keyword="searchWord"></search>
             </div>
         </v-content>
