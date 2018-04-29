@@ -65,13 +65,6 @@ import { dishesRef, storageRef, usersRef } from '../database'
                     this.newLabels
                 );
                 
-                var url = null;
-                for (var i=0; i < this.users.length; i++) {
-                    if (user.uid == this.users[i]['.key']) {
-                        if (this.users[i].avatar) url = this.users[i].avatar
-                    }
-                }
-                
                 this.setUser({
                     name: this.user.name,
                     email: this.user.email,
@@ -94,7 +87,7 @@ import { dishesRef, storageRef, usersRef } from '../database'
                         });
                     });
                     document.getElementById('avatar').value = ''
-                }
+                } 
             }
         }
     }

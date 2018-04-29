@@ -44,7 +44,7 @@
                 <template v-for="(c, index) in dish.comments">
                     <v-list-tile avatar>
                         <v-list-tile-avatar>
-                            <img v-if="c.user.avatar" :src="c.user.avatar">
+                            <img v-if="getAvatar(c.user)" :src="getAvatar(c.user)">
                             <img v-else src="https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png?w=1280">
                         </v-list-tile-avatar>
                         <v-list-tile-content>
@@ -71,7 +71,7 @@
 
 <script>
 import Firebase from 'firebase'
-import { dishesRef, storageRef } from '../database'
+import { dishesRef, storageRef, usersRef } from '../database'
     
 export default {
     data () {
@@ -100,7 +100,8 @@ export default {
     },
     
     firebase: {
-        dishes: dishesRef
+        dishes: dishesRef,
+        users: usersRef
     },
 
     methods: {
@@ -146,7 +147,17 @@ export default {
         
         deleteDish () {
             this.delete()
+        },
+        
+        getAvatar (user) {
+            for (var i=0; i < this.users.length; i++) {
+                if (user.uid == this.users[i]['.key']) {
+                    return this.users[i].avatar
+                }
+            }
+            return false
         }
+        
     }
 }
 </script>
