@@ -1,0 +1,237 @@
+{
+  "dishes" : {
+    "-LBEv1e8qXLsmZoXYG31" : {
+      "availability" : [ "Fri", "Wed" ],
+      "comments" : [ {
+        "date" : "4/29",
+        "text" : "better than McDonalds",
+        "user" : {
+          "email" : "carolyn.sun7@gmail.com",
+          "isAnonymous" : false,
+          "name" : "Carolyn Sun",
+          "uid" : "mNso3r6VKmMt8PTYxQ5o7ZyY8C73"
+        }
+      }, {
+        "date" : "4/29",
+        "text" : "^agree",
+        "user" : {
+          "email" : "cs409@duke.edu",
+          "isAnonymous" : false,
+          "name" : "CC",
+          "uid" : "P7EMnKKLnQftI2DXE8rW81GTaz93"
+        }
+      } ],
+      "dishName" : "Vegan Nuggets",
+      "downVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "images" : [ "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fvegan-nuggets.jpeg?alt=media&token=c273bf27-5e79-4e75-8754-01f44874ae05", "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fvegan-nuggets2.jpeg?alt=media&token=13da1ee7-99d9-49a9-86c8-772be13c23c4", "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fvegan-nuggets3.jpg?alt=media&token=e12fd384-46b7-49e2-8c2d-476f155a925a" ],
+      "labels" : [ "Vegan", "Vegetarian", "Pescetarian" ],
+      "location" : "Farmstead",
+      "numVotes" : 20,
+      "numVotesToday" : 20,
+      "upVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBINQMvTyr5IB2pBtZW" : {
+      "availability" : [ "Thur", "Tue" ],
+      "comments" : [ {
+        "date" : "4/29",
+        "text" : "wow so spicy!!!11!one",
+        "user" : {
+          "email" : "neil.luo@duke.edu",
+          "isAnonymous" : false,
+          "name" : "Neil Luo",
+          "uid" : "92VsR1hzquWLdFZ6GsQqzavtfmh2"
+        }
+      } ],
+      "dishName" : "Chicken Tikka Masala",
+      "downVotes" : [ "4/29/2018", "4/29/2018" ],
+      "images" : [ "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fchicken-tikka-masala.jpg?alt=media&token=f189cc0d-d182-42c3-97fa-feea5f131b3d", "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fchicken-tikka-masala2.jpg?alt=media&token=ee412158-b399-494a-96ea-aecb5d94fd77" ],
+      "location" : "Tandoor",
+      "numVotes" : 20,
+      "numVotesToday" : 20,
+      "upVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBIUUetu_g-Qhmebnjt" : {
+      "availability" : [ "Sun", "Sat", "Fri", "Thur", "Wed", "Tue", "Mon" ],
+      "dishName" : "Grilled Cheese & Tomato Soup",
+      "downVotes" : [ "4/29/2018" ],
+      "location" : "Divinity School",
+      "numVotes" : 5,
+      "numVotesToday" : 5,
+      "upVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBIUxqAokD5Yujr8kaE" : {
+      "availability" : [ "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun" ],
+      "dishName" : "Shrimp Tempura Roll",
+      "downVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "labels" : [ "Pescetarian", "Gluten-Free" ],
+      "location" : "Gyotaku",
+      "numVotes" : -1,
+      "numVotesToday" : -1,
+      "upVotes" : [ "4/29/2018", "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBIV8TVactF6bGyhNW6" : {
+      "availability" : [ "Sun" ],
+      "dishName" : "Blackened Salmon",
+      "downVotes" : [ "4/29/2018", "4/29/2018" ],
+      "labels" : [ "Pescetarian", "Gluten-Free" ],
+      "location" : "Farmstead",
+      "numVotes" : 1,
+      "numVotesToday" : -1,
+      "upVotes" : [ "4/23/2018", "4/24/2018", "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBIq3mIF9GKrUIXhso1" : {
+      "availability" : [ "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun" ],
+      "dishName" : "Chicken Nuggets",
+      "downVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "location" : "McDonalds",
+      "numVotes" : 1,
+      "numVotesToday" : 1,
+      "upVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBIs2hNjPts72m4hvNi" : {
+      "availability" : [ "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun" ],
+      "comments" : [ {
+        "date" : "4/29",
+        "text" : "Pretty good sandwich",
+        "user" : {
+          "email" : "carolyn.sun7@gmail.com",
+          "isAnonymous" : false,
+          "name" : "Carolyn Sun",
+          "uid" : "mNso3r6VKmMt8PTYxQ5o7ZyY8C73"
+        }
+      } ],
+      "dishName" : "Fish Fillet",
+      "downVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "images" : [ "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Ffish-sandiwich-comparison.jpg?alt=media&token=9e605477-208e-44bf-b475-73503e184739" ],
+      "labels" : [ "Pescetarian" ],
+      "location" : "McDonalds",
+      "numVotes" : -20,
+      "numVotesToday" : -1,
+      "visible" : true
+    },
+    "-LBJF21KA8kPZ4yBBEFX" : {
+      "availability" : [ "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun" ],
+      "dishName" : "Nutella Crepe",
+      "downVotes" : [ "4/29/2018", "4/29/2018" ],
+      "images" : [ "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fbest-nutella-crepe-recipe-sq.jpg?alt=media&token=3899392f-c8a2-477b-ae70-670d6d2a3188" ],
+      "labels" : [ "Pescetarian" ],
+      "location" : "Cafe",
+      "numVotes" : 1,
+      "numVotesToday" : 0,
+      "upVotes" : [ "4/22/2018", "4/22/2018", "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBJPG3TCz3oVl8KrgLf" : {
+      "availability" : [ "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun" ],
+      "comments" : [ {
+        "date" : "4/29",
+        "text" : "nice",
+        "user" : {
+          "email" : "mz93@duke.edu",
+          "isAnonymous" : false,
+          "name" : "Mason Zhang",
+          "uid" : "FBjRcE5sYmMFVgnfydYW2nFBw2N2"
+        }
+      }, {
+        "date" : "4/29",
+        "text" : "wao",
+        "user" : {
+          "email" : "juliana.zhang@duke.edu",
+          "isAnonymous" : false,
+          "name" : "Juliana Zhang",
+          "uid" : "FNN4EArvagdtv8Of2Bgnq8O4BoX2"
+        }
+      } ],
+      "dishName" : "Haystack",
+      "location" : "Pitchforks",
+      "numVotes" : 200,
+      "numVotesToday" : 200,
+      "upVotes" : [ "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018", "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBJPPr0e1aB5HkgACRP" : {
+      "availability" : [ "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun" ],
+      "dishName" : "Salmon Burger",
+      "labels" : [ "Pescetarian" ],
+      "location" : "Loop",
+      "numVotes" : 1,
+      "numVotesToday" : 1,
+      "upVotes" : [ "4/29/2018" ],
+      "visible" : true
+    },
+    "-LBJQXW0SUfgc7u2K0W_" : {
+      "availability" : [ "Wed" ],
+      "dishName" : "Buffalo Mac and Cheese",
+      "location" : "Divinity Cafe",
+      "numVotes" : 0,
+      "numVotesToday" : 0,
+      "visible" : true
+    },
+    "-LBJUSunMzTlHARylv1Y" : {
+      "availability" : [ "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun" ],
+      "dishName" : "Orange Chicken",
+      "location" : "Panda Express",
+      "numVotes" : 0,
+      "numVotesToday" : 0,
+      "visible" : true
+    }
+  },
+  "users" : {
+    "92VsR1hzquWLdFZ6GsQqzavtfmh2" : {
+      "avatar" : "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fyoneda.PNG?alt=media&token=77a99cfd-25f0-4e48-8eb4-39cc9a1bd499",
+      "email" : "neil.luo@duke.edu",
+      "isAnonymous" : false,
+      "name" : "Neil Luo"
+    },
+    "FBjRcE5sYmMFVgnfydYW2nFBw2N2" : {
+      "avatar" : "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2FJeb.png?alt=media&token=9f71959c-6799-4188-8a85-3879e001a6d9",
+      "email" : "mz93@duke.edu",
+      "isAnonymous" : false,
+      "name" : "Mason Zhang"
+    },
+    "FNN4EArvagdtv8Of2Bgnq8O4BoX2" : {
+      "avatar" : "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fwatertribe.jpg?alt=media&token=c2371fac-f0bd-446c-8808-66bb57d41600",
+      "email" : "juliana.zhang@duke.edu",
+      "isAnonymous" : false,
+      "name" : "Juliana Zhang"
+    },
+    "P7EMnKKLnQftI2DXE8rW81GTaz93" : {
+      "avatar" : "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Fcute-cat-pictures-the-cutest-cat-ever.jpg?alt=media&token=f5bb3204-f84b-4185-8220-de97d8b4b175",
+      "email" : "cs409@duke.edu",
+      "isAnonymous" : false,
+      "name" : "CC"
+    },
+    "UuAamuUPS5Nj9UhOZ73yzyIftKq1" : {
+      "avatar" : "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2FIMG_3844.JPG?alt=media&token=0a7b26c7-9942-4295-9f06-036006ede512",
+      "email" : "wy30@duke.edu",
+      "isAdmin" : true,
+      "isAnonymous" : false,
+      "name" : "Annie Yin",
+      "prefs" : [ "Pescetarian", "Gluten-Free" ]
+    },
+    "mNso3r6VKmMt8PTYxQ5o7ZyY8C73" : {
+      "avatar" : "https://firebasestorage.googleapis.com/v0/b/ddelp-79d8e.appspot.com/o/images%2Flarge.jpg?alt=media&token=00194719-ed58-4188-9bbe-c011fc01a8d5",
+      "email" : "carolyn.sun7@gmail.com",
+      "isAdmin" : true,
+      "isAnonymous" : false,
+      "name" : "Carolyn Sun"
+    },
+    "oDG6GqrKKhWbWANayc0Qx7o7Htm2" : {
+      "email" : "ayin9807@gmail.com",
+      "isAnonymous" : false,
+      "name" : "Alex Smith"
+    },
+    "osAV8UBI6AYTOSnwDVBZ9e5G29o1" : {
+      "email" : "bunni7@gmail.com",
+      "isAdmin" : true,
+      "isAnonymous" : false,
+      "name" : "Admin Grader"
+    }
+  }
+}
