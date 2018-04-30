@@ -1,12 +1,12 @@
 <template>
 <div >
-     <h1 class="list-title">Top Dishes All Time</h1>
+     <h1 class="list-title">Top Dishes Today</h1>
     <v-layout>
     <v-card>
     <v-list three-line>
         <template v-for="(key, index) in sortedDishes">
             <div v-show="key.visible">
-            <v-list-tile avatar ripple :key="index" @click="updateDish(key)">
+            <v-list-tile avatar ripple :key="index" @click="updateDish(key)" v-if="showDish(key)">
                 <v-list-tile-content>
                     <v-list-tile-title>{{ key.dishName }}</v-list-tile-title>
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
@@ -60,6 +60,11 @@ export default {
         vote(dish, amount) {            
             this.onVote(dish, amount)
         }
+        ,showDish (dish) {
+                var keywords = this.keyword.toLowerCase().split(/[ -]+/)
+                var name = dish.dishName.toLowerCase().split(/[ -]+/)
+                return keywords.some(r=> name.indexOf(r) >= 0)
+            }
     }
 }
 </script>

@@ -13,6 +13,7 @@
                 </authentication>
             </v-toolbar>
             <div id="main-page">
+                <top-dishes-today :onVote="vote" :setDish="viewDish" v-if="displayHome"></top-dishes-today>
                 <top-restaurants :onVote="vote" :setDish="viewDish" v-if="displayHome"></top-restaurants>
                 <recent-dishes :onVote="vote" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
@@ -36,6 +37,7 @@ import RecentDishes from './components/MostRecent'
 import AddDish from './components/AddDish'
 import DishInfo from './components/DishInfo'
 import Profile from './components/Profile'
+import TopDishesToday from './components/TopDishesToday'
     
 export default {
     name: 'app',
@@ -80,7 +82,8 @@ export default {
         DishInfo,
         TopRestaurants,
         RecentDishes,
-        Profile
+        Profile,
+        TopDishesToday
     },
     
     methods: {
