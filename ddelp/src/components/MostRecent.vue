@@ -1,6 +1,6 @@
 <template>
 <div >
-    <h1 class="list-title">Most Recently Added</h1>
+    <h1 class="list-title">5 Most Recently Added</h1>
     <v-layout>
     <v-card>
     <v-list three-line>

@@ -1,6 +1,6 @@
 <template>
 <div >
-    <h1 class="list-title">Top Dishes of All Time</h1>
+    <h1 class="list-title">Top 5 Dishes of All Time</h1>
     <v-layout>
     <v-card>
     <v-list three-line>
