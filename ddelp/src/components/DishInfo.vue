@@ -70,7 +70,7 @@
         </v-container>
     </v-card>
 </div>
-<v-btn v-if="admin" @click="deleteDish">Delete</v-btn>
+<v-btn v-if="admin" color="red" @click="deleteDish">Delete</v-btn>
 <v-btn  @click="exitDishInfo">Exit</v-btn>
 </div>    
 </template>
