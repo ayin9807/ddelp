@@ -29,7 +29,8 @@ export default {
     props: [
         'getUser',
         'setUser',
-        'viewProfile'
+        'viewProfile',
+        'show'
     ],
     // let HTML template access user as if it were a variable in this component
     computed: {
@@ -40,6 +41,7 @@ export default {
     // methods for signing in and out
     methods: {
         signInPopup () {
+            this.show()
             authUI.start('#firebaseui-auth-container', {
                 // open the authentication flow as a popup
                 signInFlow: 'popup',
@@ -116,6 +118,7 @@ export default {
 <style scoped>
 .popup {
     position: absolute;
+    z-index: 1;
     padding: 15px;
     width: 350px;
     height: 250px;

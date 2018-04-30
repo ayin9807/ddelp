@@ -9,7 +9,8 @@
                 <authentication class="z nav navbar-nav navbar-right"
                     :getUser="getUser"
                     :setUser="setUser"
-                    :viewProfile="viewProfile">
+                    :viewProfile="viewProfile"
+                    :show="showPopup">
                 </authentication>
             </v-toolbar>
             <div id="main-page">
@@ -49,13 +50,14 @@ export default {
             isAddingDish: false,     // is true if someone clicks on add dish
             viewingProfile: false,
             searchWord: null,
-            showResults: false
+            showResults: false,
+            loggingIn: false
         }
     },
     
     computed: {
         displayHome: function () {
-            return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile) && (!this.showResults)
+            return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile) && (!this.showResults) && (!this.loggingIn)
         },
         admin: function () {
             if (this.user) {
@@ -87,15 +89,13 @@ export default {
     },
     
     methods: {
-        search(){
-            this.pressSearch= true
-        }
         // allow child component to change user value
-        ,getUser () {
+        getUser () {
             return this.user
         },
         setUser (user) {
             this.user = user
+            this.loggingIn = false
         },
         viewDish (value) {
             this.dishDict = value
@@ -129,6 +129,10 @@ export default {
         
         exitProfile() {
             this.viewingProfile = false
+        },
+
+        showPopup () {
+            this.loggingIn = true
         },
         
         vote (dish, amount) {
