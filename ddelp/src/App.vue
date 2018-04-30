@@ -16,7 +16,7 @@
                 <top-restaurants :onVote="vote" :setDish="viewDish" v-if="displayHome"></top-restaurants>
                 <recent-dishes :onVote="vote" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
-                <search v-if="showResults" :keyword="searchWord" :setDish="viewDish" :onVote="vote"></search>
+                <search v-if="showResults" :keyword="searchWord" :setDish="viewDish" :onVote="vote" :exit="exitSearch"></search>
                 <dish-info v-if="dishDict" :getDish="getDish" :getUser="getUser" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
                 <profile v-if="viewingProfile" :user="user" :onClick="exitProfile" :setUser="setUser"></profile>
             </div>
@@ -113,6 +113,11 @@ export default {
         
         exitDishInfo () {
             this.dishDict = null
+        },
+
+        exitSearch() {
+            this.showResults = false
+            this.searchWord = null
         },
         
         viewProfile () {
