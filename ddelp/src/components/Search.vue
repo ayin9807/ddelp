@@ -22,6 +22,7 @@
     <h3>Don't see what you're looking for? Add the dish!</h3>
     <v-btn  @click="exitDishInfo">Exit</v-btn>
 </div>
+</div>
 </template>
 
 <script>
@@ -31,6 +32,7 @@ import { dishesRef, usersRef } from '../database'
     export default {
         data () {
             return {
+                dishes: dishesRef
                 
             }
         },

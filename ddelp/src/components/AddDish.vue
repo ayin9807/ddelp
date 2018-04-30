@@ -4,6 +4,7 @@
     <v-card width="600px">
         <v-container fluid>
         <v-card-title><h1 style="color: darkgray;">Add Dish</h1></v-card-title>
+        <h3>To prevent duplicate dishes, please search for your dish in the navbar first!</h3>
         <v-layout row justify-center>
             <v-text-field id="cardTitle" v-model="newDishName" placeholder="Dish Name"></v-text-field>
         </v-layout>
@@ -38,8 +39,8 @@
             <input type="file" id="dish-files" name="files[]" multiple />
         </v-layout>
         <v-layout row justify-center>
-               <v-btn flat value="Add Card" @click="addDish">Add Dish</v-btn>
-               <v-btn flat value="Cancel" @click="resetAddDish">Cancel</v-btn>
+               <v-btn value="Add Card" @click="addDish()">Add Dish</v-btn>
+               <v-btn value="Cancel" @click="resetAddDish()">Cancel</v-btn>
         </v-layout>
         </v-container>
     </v-card>
@@ -72,6 +73,7 @@ export default {
         }, 
         
         addDish () {
+            if(this.newDishName && this.newDishLocation){
             var images = document.getElementById('dish-files');
             var name = this.newDishName;
             var location = this.newDishLocation;
@@ -96,6 +98,7 @@ export default {
                         upVotes: upvotes,
                         downVotes: downvotes,
                         numVotes: 0,
+                        numVotesToday: 0,
                         comments: comments,
                         availability: availability,
                         images: results,
@@ -110,6 +113,7 @@ export default {
                     upVotes: upvotes,
                     downVotes: downvotes,
                     numVotes: 0,
+                    numVotesToday: 0,
                     comments: comments,
                     availability: availability,
                     labels: labels,
@@ -118,17 +122,21 @@ export default {
             }
             
             this.resetAddDish();
+        } else{
+            alert("You must enter the dish's name and location");
+        }
         }, 
         
         resetAddDish(){
-            this.newDishName = '';
-            this.newDishLocation='';
-            this.newDishVotes=[];
-            this.newDishComments=[];
-            this.newDishDaysOfTheWeek = [];
+            this.newDishName= '',
+            this.newDishLocation= '',
+            this.newDishUpVotes= [],
+            this.newDishDownVotes= [],
+            this.newDishComments= [],
+            this.newDishAvailability = [],
+            this.newShow = true,
+            this.newLabels = []
             this.onClick();
-            this.newDateAdded = '';
-            this.newLabels = [];
         },
         
         

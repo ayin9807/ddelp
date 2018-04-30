@@ -84,8 +84,11 @@ export default {
     },
     
     methods: {
+        search(){
+            this.pressSearch= true
+        }
         // allow child component to change user value
-        getUser () {
+        ,getUser () {
             return this.user
         },
         setUser (user) {
@@ -121,12 +124,11 @@ export default {
         },
         
         vote (dish, amount) {
+            var d = new Date();
+            var date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
             dishesRef.child(dish['.key']).once('value', function(snapshot) {
                 var newNumVotes = snapshot.val().numVotes;
                 newNumVotes += amount;
-                
-                var d = new Date();
-                var date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
                 
                 if (amount > 0) { //upvoting
                     var newUpVotes = snapshot.val().upVotes;
@@ -151,6 +153,11 @@ export default {
                         downVotes: newDownVotes
                     });
                 }
+                
+            });
+            dishesRef.child(dish['.key']).once('value', function(snapshot) {
+                var newNumVotesToday = snapshot.val().numVotesToday;
+                newNumVotesToday += amount;
                 
             });
         },
