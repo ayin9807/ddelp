@@ -163,11 +163,42 @@ export default {
                 }
                 
             });
-            dishesRef.child(dish['.key']).once('value', function(snapshot) {
+            
+            var d = new Date();
+            var date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+            //check if last vote was from today
+            var lastVote = null;
+            if(dish.upVotes!=null){
+                lastVote = dish.upVotes[dish.upVotes.length-1];
+            }
+            if(dish.downVotes!=null && dish.downVotes[dish.upVotes.length-1] > lastVote){
+                lastVote = dish.downVotes[dish.upVotes.length-1];
+            }
+            if(lastVote != date){ 
+                dishesRef.child(dish['.key']).once('value', function(snapshot) {
+                var newNumVotesToday = snapshot.val().numVotesToday;
+                if(amount > 0) {
+                    dishesRef.child(dish['.key']).update({
+                        numVotesToday : 1
+                    });
+                } else{
+                    dishesRef.child(dish['.key']).update({
+                        numVotesToday : -1
+                    });
+                }
+                
+                
+                });
+            } else {
+                dishesRef.child(dish['.key']).once('value', function(snapshot) {
                 var newNumVotesToday = snapshot.val().numVotesToday;
                 newNumVotesToday += amount;
+                dishesRef.child(dish['.key']).update({
+                        numVotesToday : newNumVotesToday
+                    });
                 
-            });
+                });
+            }
         },
         
         deleteDish () {
