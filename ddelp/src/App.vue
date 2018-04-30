@@ -5,7 +5,7 @@
             <v-toolbar color="teal lighten-3">
                 <h1>DDelp</h1>
                 <v-spacer></v-spacer>
-                <v-text-field prepend-icon="search" placeholder="search for existing dishes..." v-model="searchWord" @keyup.enter="searchingDishes"></v-text-field>
+                <v-text-field placeholder="search for existing dishes..." v-model="searchWord" @keyup.enter="searchingDishes"></v-text-field> <v-btn small @click="search()" >Search</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn @click="isAddingDish = true"><a><span class="glyphicon"></span>Add Dish</a></v-btn>
                 <v-spacer></v-spacer>
@@ -21,7 +21,7 @@
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
                 <dish-info v-if="dishDict" :getDish="getDish" :getUser="getUser" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
                 <profile v-if="viewingProfile" :user="user" :onClick="exitProfile" :setUser="setUser"></profile>
-                <search v-if="searchWord" :keyword="searchWord"></search>
+                <search v-if="pressSearch" :keyword="searchWord"></search>
             </div>
         </v-content>
     </v-app>
@@ -49,7 +49,8 @@ export default {
             dishDict: null,     // is not null if someone clicks on a dish card
             isAddingDish: false,     // is true if someone clicks on add dish
             viewingProfile: false,
-            searchWord: null
+            searchWord: null,
+            pressSearch: false
         }
     },
     
@@ -84,8 +85,11 @@ export default {
     },
     
     methods: {
+        search(){
+            this.pressSearch= true
+        }
         // allow child component to change user value
-        getUser () {
+        ,getUser () {
             return this.user
         },
         setUser (user) {
@@ -121,12 +125,11 @@ export default {
         },
         
         vote (dish, amount) {
+            var d = new Date();
+            var date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
             dishesRef.child(dish['.key']).once('value', function(snapshot) {
                 var newNumVotes = snapshot.val().numVotes;
                 newNumVotes += amount;
-                
-                var d = new Date();
-                var date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
                 
                 if (amount > 0) { //upvoting
                     var newUpVotes = snapshot.val().upVotes;
@@ -151,6 +154,11 @@ export default {
                         downVotes: newDownVotes
                     });
                 }
+                
+            });
+            dishesRef.child(dish['.key']).once('value', function(snapshot) {
+                var newNumVotesToday = snapshot.val().numVotesToday;
+                newNumVotesToday += amount;
                 
             });
         },
