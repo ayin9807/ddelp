@@ -20,7 +20,7 @@
     </v-list>
     </v-card>
     <h3>Don't see what you're looking for? Add the dish!</h3>
-    <v-btn  @click="exitDishInfo">Exit</v-btn>
+    <v-btn  @click="exitSearch">Exit</v-btn>
 </div>
 </div>
 </template>
@@ -40,7 +40,8 @@ import { dishesRef, usersRef } from '../database'
         props: [
             'keyword',
             'setDish',
-            'onVote'
+            'onVote',
+            'exit'
         ],
 
         firebase: {
@@ -62,6 +63,10 @@ import { dishesRef, usersRef } from '../database'
                 var keywords = this.keyword.toLowerCase().split(/[ -]+/)
                 var name = dish.dishName.toLowerCase().split(/[ -]+/)
                 return keywords.some(r=> name.indexOf(r) >= 0)
+            },
+
+            exitSearch () {
+                this.exit()
             }
             
         }

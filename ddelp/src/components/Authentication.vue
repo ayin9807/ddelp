@@ -76,7 +76,7 @@ export default {
                     return;
                 }
             }
-            usersRef.child(user.uid).set({
+            usersRef.child(user.uid).update({
                 name: user.displayName,
                 email: user.email,
                 isAnonymous: user.isAnonymous
