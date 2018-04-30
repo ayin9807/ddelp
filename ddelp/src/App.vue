@@ -4,11 +4,8 @@
         <v-content>
             <v-toolbar color="teal lighten-3">
                 <h1>DDelp</h1>
-                <v-spacer></v-spacer>
-                <v-text-field prepend-icon="search" placeholder="search for existing dishes..." v-model="searchWord" @keyup.enter="searchingDishes"></v-text-field>
-                <v-spacer></v-spacer>
-                <v-btn @click="isAddingDish = true"><a><span class="glyphicon"></span>Add Dish</a></v-btn>
-                <v-spacer></v-spacer>
+                <v-btn v-if="user" @click="isAddingDish = true"><a><span class="glyphicon"></span>Add Dish</a></v-btn>
+                <v-text-field prepend-icon="search" placeholder="Search for existing dishes... Press enter to see results" v-model="searchWord" @keyup.enter="searchingDishes"></v-text-field>
                 <authentication class="z nav navbar-nav navbar-right"
                     :getUser="getUser"
                     :setUser="setUser"
@@ -19,9 +16,9 @@
                 <top-restaurants :onVote="vote" :setDish="viewDish" v-if="displayHome"></top-restaurants>
                 <recent-dishes :onVote="vote" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
+                <search v-if="showResults" :keyword="searchWord" :setDish="viewDish" :onVote="vote"></search>
                 <dish-info v-if="dishDict" :getDish="getDish" :getUser="getUser" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
                 <profile v-if="viewingProfile" :user="user" :onClick="exitProfile" :setUser="setUser"></profile>
-                <search v-if="searchWord" :keyword="searchWord"></search>
             </div>
         </v-content>
     </v-app>
@@ -49,21 +46,24 @@ export default {
             dishDict: null,     // is not null if someone clicks on a dish card
             isAddingDish: false,     // is true if someone clicks on add dish
             viewingProfile: false,
-            searchWord: null
+            searchWord: null,
+            showResults: false
         }
     },
     
     computed: {
         displayHome: function () {
-            return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile) && (!this.searchWord)
+            return (!this.dishDict) && (!this.isAddingDish) && (!this.viewingProfile) && (!this.showResults)
         },
         admin: function () {
-            for (var i=0; i < this.users.length; i++) {
-                if (this.user.uid == this.users[i]['.key']) {
-                    return this.users[i].isAdmin
+            if (this.user) {
+                for (var i=0; i < this.users.length; i++) {
+                    if (this.user.uid == this.users[i]['.key']) {
+                        return this.users[i].isAdmin
+                    }
                 }
+                // this.admin = this.users.child(this.user.uid).isAdmin
             }
-            // this.admin = this.users.child(this.user.uid).isAdmin
             return false
         }
     },
@@ -162,6 +162,7 @@ export default {
         
         searchingDishes () {
             console.log(this.searchWord)
+            this.showResults = true
         }
     }
 }
