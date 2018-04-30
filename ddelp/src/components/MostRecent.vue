@@ -10,6 +10,11 @@
                 <v-list-tile-content>
                     <v-list-tile-title>{{ key.dishName }}</v-list-tile-title>
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title v-if="showPrefs(key)">
+                    <v-layout row>
+                        <div style="color: limegreen; height: 21px; margin-right: 4px;" v-for="p in showPrefs(key)">{{ p }}</div>
+                    </v-layout>
+                    </v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                     <v-btn flat icon @click.stop="vote(key, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
@@ -28,7 +33,7 @@
 
 <script>
 import Firebase from 'firebase'
-import { dishesRef } from '../database'
+import { dishesRef, usersRef } from '../database'
 import { dishesAddedRef } from '../database'
 
  
@@ -42,11 +47,13 @@ export default {
     },
     firebase: {
         dishes: dishesRef,
-        dishesAdded: dishesAddedRef
+        dishesAdded: dishesAddedRef,
+        users: usersRef
     },
     props: [
         'setDish',
-        'onVote'
+        'onVote',
+        'user'
     ], 
     
     methods: {
@@ -57,81 +64,34 @@ export default {
             this.onVote(dish, amount)
         },
         
-        filter(criteria, cat){
-            if(cat == 'date'){
-                if(criteria == 'today'){
-                    dishesRef.once('value', function (dishesSnapshot) {
-                        var dishes = dishesSnapshot.val();
-                        dishesSnapshot.forEach(function (dishesSnapshot) {
-                            dishesSnapshot.ref.update({
-                                        'visible': false
-                                });
-                            dishesSnapshot.child('upVotes').forEach(function (upVoteSnapshot) {
-                                
-                                var d = new Date();
-                                var today = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
-                                var upvoteDate = upVoteSnapshot.val();
-                                if (today == upvoteDate) {
-                                    dishesSnapshot.ref.update({
-                                        'visible': true
-                                    });
-                                }
-                            });
-                        });
-                    });
-                } else if(criteria == 'week'){
-                    dishesRef.once('value', function (dishesSnapshot) {
-                        var dishes = dishesSnapshot.val();
-                        dishesSnapshot.forEach(function (dishesSnapshot) {
-                            dishesSnapshot.ref.update({
-                                        'visible': false
-                                });
-                            dishesSnapshot.child('upVotes').forEach(function (upVoteSnapshot) {
-                                
-                                var d = new Date();
-                                var today = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
-                                var upvoteDate = upVoteSnapshot.val();
-                                if (today.split("/")[0] == upvoteDate.split("/")[0]) { //check month
-                                    if(today.split("/")[1] - 7 <= upvoteDate.split("/")[1] <= today.split("/")[1] + 7)
-                                    dishesSnapshot.ref.update({
-                                        'visible': true
-                                    });
-                                }
-                            });
-                        });
-                    });
-                } else if(criteria == 'month'){
-                    dishesRef.once('value', function (dishesSnapshot) {
-                        var dishes = dishesSnapshot.val();
-                        dishesSnapshot.forEach(function (dishesSnapshot) {
-                            dishesSnapshot.ref.update({
-                                        'visible': false
-                                });
-                            dishesSnapshot.child('upVotes').forEach(function (upVoteSnapshot) {
-                                
-                                var d = new Date();
-                                var today = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
-                                var upvoteDate = upVoteSnapshot.val();
-                                if (today.split("/")[0] == upvoteDate.split("/")[0]) {
-                                    dishesSnapshot.ref.update({
-                                        'visible': true
-                                    });
-                                }
-                            });
-                        });
-                    });
-                } else if(criteria == 'all'){
-                    dishesRef.once('value', function (dishesSnapshot) {
-                        var dishes = dishesSnapshot.val();
-                        dishesSnapshot.forEach(function (dishesSnapshot) {
-                            dishesSnapshot.ref.update({
-                                        'visible': true
-                                });
-                        });
-                    });
+        showPrefs (dish) {
+            if (this.user == null || dish.labels == null) {
+                return false
+            }
+
+            var labels = []
+            var userPrefs = null
+            for (var i=0; i < this.users.length; i++) {
+                if (this.user.uid == this.users[i]['.key']) {
+                    userPrefs = this.users[i].prefs
                 }
             }
-        }
+
+            if (userPrefs == null) {
+                return false
+            }
+
+            for (var i=0; i < dish.labels.length; i++) {
+                if (userPrefs.indexOf(dish.labels[i]) > -1) {
+                    labels.push(dish.labels[i])
+                }
+            }
+    
+            if (labels.length > 0) {
+                return labels
+            }
+            return false 
+        }  
     }
 }
 </script>

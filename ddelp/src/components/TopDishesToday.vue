@@ -10,6 +10,11 @@
                 <v-list-tile-content>
                     <v-list-tile-title>{{index+1}}. {{ key.dishName }}</v-list-tile-title>
                     <v-list-tile-sub-title>{{ key.location }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title v-if="showPrefs(key)">
+                    <v-layout row>
+                        <div style="color: limegreen; height: 21px; margin-right: 4px;" v-for="p in showPrefs(key)">{{ p }}</div>
+                    </v-layout>
+                    </v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                     <v-btn flat icon @click.stop="vote(key, 1)"><v-icon>keyboard_arrow_up</v-icon></v-btn>
@@ -28,7 +33,7 @@
 
 <script>
 import Firebase from 'firebase'
-import { dishesRef } from '../database'
+import { dishesRef, usersRef } from '../database'
 import { dishesAddedRef } from '../database'
 
 export default {
@@ -39,7 +44,8 @@ export default {
     }, 
     
     firebase: {
-        dishes: dishesRef
+        dishes: dishesRef,
+        users: usersRef
     }
     , computed: {
         sortedDishes() {
@@ -50,7 +56,8 @@ export default {
     }
     , props: [
         'setDish',
-        'onVote'
+        'onVote',
+        'user'
     ], 
     
     methods: {
@@ -59,7 +66,35 @@ export default {
         },
         vote(dish, amount) {            
             this.onVote(dish, amount)
-        }
+        },
+        showPrefs (dish) {
+            if (this.user == null || dish.labels == null) {
+                return false
+            }
+
+            var labels = []
+            var userPrefs = null
+            for (var i=0; i < this.users.length; i++) {
+                if (this.user.uid == this.users[i]['.key']) {
+                    userPrefs = this.users[i].prefs
+                }
+            }
+
+            if (userPrefs == null) {
+                return false
+            }
+
+            for (var i=0; i < dish.labels.length; i++) {
+                if (userPrefs.indexOf(dish.labels[i]) > -1) {
+                    labels.push(dish.labels[i])
+                }
+            }
+    
+            if (labels.length > 0) {
+                return labels
+            }
+            return false 
+        }  
     }
 }
 </script>

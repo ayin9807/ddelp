@@ -14,11 +14,11 @@
                 </authentication>
             </v-toolbar>
             <div id="main-page">
-                <top-dishes-today :onVote="vote" :setDish="viewDish" v-if="displayHome"></top-dishes-today>
-                <top-restaurants :onVote="vote" :setDish="viewDish" v-if="displayHome"></top-restaurants>
-                <recent-dishes :onVote="vote" :setDish="viewDish" v-if="displayHome"></recent-dishes>  
+                <top-dishes-today :onVote="vote" :setDish="viewDish" v-if="displayHome" :user="user"></top-dishes-today>
+                <top-restaurants :onVote="vote" :setDish="viewDish" v-if="displayHome" :user="user"></top-restaurants>
+                <recent-dishes :onVote="vote" :setDish="viewDish" v-if="displayHome" :user="user"></recent-dishes>  
                 <add-dish v-if="isAddingDish" :onClick="exitAddForm"></add-dish>
-                <search v-if="showResults" :keyword="searchWord" :setDish="viewDish" :onVote="vote" :exit="exitSearch"></search>
+                <search v-if="showResults" :keyword="searchWord" :setDish="viewDish" :onVote="vote" :exit="exitSearch" :user="user"></search>
                 <dish-info v-if="dishDict" :getDish="getDish" :getUser="getUser" :onClick="exitDishInfo" :onVote="vote" :admin="admin" :delete="deleteDish"></dish-info>
                 <profile v-if="viewingProfile" :user="user" :onClick="exitProfile" :setUser="setUser"></profile>
             </div>

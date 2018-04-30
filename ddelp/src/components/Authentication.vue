@@ -118,7 +118,6 @@ export default {
 <style scoped>
 .popup {
     position: absolute;
-    z-index: 1;
     padding: 15px;
     width: 350px;
     height: 250px;
