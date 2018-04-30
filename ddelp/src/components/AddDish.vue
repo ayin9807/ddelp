@@ -4,6 +4,7 @@
     <v-card width="600px">
         <v-container fluid>
         <v-card-title><h1 style="color: darkgray;">Add Dish</h1></v-card-title>
+        <h3>To prevent duplicate dishes, please search for your dish in the navbar first!</h3>
         <v-layout row justify-center>
             <v-text-field id="cardTitle" v-model="newDishName" placeholder="Dish Name"></v-text-field>
         </v-layout>
